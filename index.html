@@ -68,7 +68,7 @@
             z-index: 1; 
         }
         
-        /* --- UPDATED: TEXT OVERLAY (Transparent & Readable) --- */
+        /* --- TEXT OVERLAY --- */
         .banner-text-overlay {
             position: absolute;
             top: 50%;
@@ -79,30 +79,27 @@
             width: 100%;
             pointer-events: none;
             
-            /* No solid box anymore. Just a subtle radial fade behind text */
-            background: radial-gradient(closest-side, rgba(11, 15, 25, 0.7), transparent 100%);
-            padding: 20px;
+            /* Subtle fade behind text for readability */
+            background: radial-gradient(closest-side, rgba(11, 15, 25, 0.8), transparent 100%);
+            padding: 30px;
         }
         
-        /* --- UPDATED: NAME ANIMATION (High Contrast Flow) --- */
+        /* --- NAME ANIMATION (High Contrast Flow) --- */
         .banner-text-overlay h2 {
-            font-size: 4em; /* Larger */
+            font-size: 4em;
             font-weight: 800;
             margin-bottom: 0.2em;
             letter-spacing: 1px;
             
-            /* High Contrast Gradient: White -> Green -> Cyan -> White */
-            background: linear-gradient(90deg, #ffffff, #4acaa8, #00e5ff, #ffffff);
-            background-size: 300% 100%; /* Wider gradient for smoother flow */
+            /* Gradient: White -> Soft Cyan -> White */
+            background: linear-gradient(90deg, #ffffff, #22d3ee, #ffffff);
+            background-size: 300% 100%; 
             
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             
-            /* Faster animation (3s) */
-            animation: cyberFlow 3s linear infinite;
-            
-            /* Heavy Drop Shadow to keep it readable against waves */
-            filter: drop-shadow(0 0 8px rgba(0,0,0,0.9));
+            animation: cyberFlow 4s linear infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
         }
         
         @keyframes cyberFlow {
@@ -117,7 +114,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 600;
-            text-shadow: 0 2px 4px rgba(0,0,0,1); /* Strong shadow for readability */
+            text-shadow: 0 2px 4px rgba(0,0,0,1);
         }
 
         /* --- GLASS PANELS (Containers) --- */
@@ -472,7 +469,7 @@
             }
         });
 
-        /* --- HYBRID: BINARY RAIN + GLOWING WAVES --- */
+        /* --- HYBRID: BINARY RAIN + SOFT WAVES (No Glow) --- */
         window.addEventListener('load', function() {
             const canvas = document.getElementById('hybrid-canvas');
             const ctx = canvas.getContext('2d');
@@ -492,7 +489,7 @@
                 mouse.y = e.clientY - rect.top;
             });
 
-            // --- PART 1: BINARY RAIN CONFIG ---
+            // Part 1: Binary Rain
             const binaryChars = "10";
             const fontSize = 14;
             const columns = canvas.width / fontSize;
@@ -501,18 +498,20 @@
                 drops[x] = Math.random() * canvas.height; 
             }
 
-            // --- PART 2: WAVE CONFIG ---
+            // Part 2: Wave Config (LOWER OPACITY, NO NEON)
             const waves = [
-                { length: 0.008, amplitude: 50, speed: 0.04, color: 'rgba(74, 202, 168, 1)', offset: 0 }, 
-                { length: 0.015, amplitude: 40, speed: 0.02, color: 'rgba(0, 190, 255, 0.8)', offset: 2 }, 
+                { length: 0.008, amplitude: 50, speed: 0.04, color: 'rgba(34, 211, 238, 0.5)', offset: 0 }, // Soft Cyan
+                { length: 0.015, amplitude: 40, speed: 0.02, color: 'rgba(56, 189, 248, 0.5)', offset: 2 },  // Soft Blue
             ];
             let increment = 0;
 
             function animate() {
+                // Background trail
                 ctx.fillStyle = 'rgba(11, 15, 25, 0.1)'; 
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                ctx.fillStyle = 'rgba(74, 202, 168, 0.25)'; 
+                // Draw Binary
+                ctx.fillStyle = 'rgba(74, 202, 168, 0.15)'; // Very faint green matrix
                 ctx.font = fontSize + 'px monospace';
 
                 for(let i = 0; i < drops.length; i++) {
@@ -524,7 +523,7 @@
                     drops[i]++;
                 }
 
-                ctx.globalCompositeOperation = 'lighter';
+                // Removed "lighter" composite mode to reduce glow
                 increment += 0.02;
                 
                 waves.forEach(wave => {
@@ -541,12 +540,14 @@
                     }
                     ctx.strokeStyle = wave.color;
                     ctx.lineWidth = 3;
-                    ctx.shadowBlur = 15;
+                    
+                    // Reduced Shadow Blur significantly (from 15 to 4)
+                    ctx.shadowBlur = 4;
                     ctx.shadowColor = wave.color;
                     ctx.stroke();
                     ctx.shadowBlur = 0; 
                 });
-                ctx.globalCompositeOperation = 'source-over';
+                
                 requestAnimationFrame(animate);
             }
             animate();
