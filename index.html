@@ -10,38 +10,47 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* --- GLOBAL DARK THEME --- */
-        body {
-            font-family: 'Poppins', sans-serif !important;
-            background-color: #0f172a; /* Deep Slate Blue */
-            color: #94a3b8; /* Soft Gray Text */
-            /* Subtle Tech Grid Pattern */
-            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
+        /* --- CRITICAL DARK THEME OVERRIDES --- */
+        /* We use !important to overwrite the original template's white background */
+        
+        body, html {
+            background-color: #0f172a !important; /* Deep Dark Blue */
+            color: #cbd5e1 !important; /* Light Silver Text */
         }
 
-        /* Typography overrides for Dark Mode */
-        h1, h2, h3, h4, h5, h6, strong, b {
-            color: #e2e8f0 !important; /* Bright White-ish */
+        /* The template wraps everything in these IDs, they must be dark too */
+        #wrapper, #main, #footer {
+            background-color: #0f172a !important;
         }
-        
-        a { color: #4acaa8 !important; }
 
         /* Sidebar Glassmorphism */
         #header {
-            background: rgba(11, 15, 25, 0.95) !important;
-            backdrop-filter: blur(10px);
+            background: rgba(11, 15, 25, 0.98) !important;
             border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* --- HYBRID ANIMATION BANNER --- */
+        /* --- TYPOGRAPHY FIXES (Make text readable) --- */
+        h1, h2, h3, h4, h5, h6, strong, b {
+            color: #ffffff !important; /* Bright White Headers */
+        }
+        
+        p, li, span {
+            color: #cbd5e1 !important; /* Ensure readability */
+        }
+
+        a { 
+            color: #4acaa8 !important; /* Theme Green for links */
+            border-bottom-color: rgba(74, 202, 168, 0.5) !important;
+        }
+
+        /* --- ANIMATION BANNER --- */
         #about {
             position: relative;
             padding: 0;
             overflow: hidden;
-            background: #0b0f19;
+            background: #0b0f19 !important;
             margin-bottom: 2em;
+            border-bottom: 2px solid #4acaa8;
         }
 
         #banner-container {
@@ -51,7 +60,6 @@
             height: 450px; 
             background: #0b0f19;
             overflow: hidden;
-            border-bottom: 2px solid #4acaa8;
         }
 
         #hybrid-canvas {
@@ -64,6 +72,7 @@
             z-index: 1; 
         }
         
+        /* Banner Text */
         .banner-text-overlay {
             position: absolute;
             top: 50%;
@@ -77,7 +86,7 @@
         
         .banner-text-overlay h2 {
             font-size: 3.5em;
-            color: #ffffff;
+            color: #ffffff !important;
             font-weight: 700;
             text-shadow: 0 0 20px rgba(74, 202, 168, 0.8);
             margin-bottom: 0.1em;
@@ -86,7 +95,7 @@
         
         .banner-text-overlay p {
             font-size: 1.1em;
-            color: #4acaa8;
+            color: #4acaa8 !important;
             font-family: 'Courier New', monospace;
             background: rgba(0,0,0,0.85);
             display: inline-block;
@@ -99,10 +108,10 @@
             box-shadow: 0 0 15px rgba(0,0,0,0.8);
         }
 
-        /* --- CONTENT CARDS (Glass Effect) --- */
-        /* Applied to Timeline Items, Skill Sections, etc. */
+        /* --- GLASS PANELS (Containers) --- */
+        /* This makes content stand out from the dark background */
         .glass-panel {
-            background: rgba(30, 41, 59, 0.4); /* Semi-transparent dark blue */
+            background: rgba(30, 41, 59, 0.5); /* Slightly lighter than bg */
             border: 1px solid rgba(255, 255, 255, 0.05);
             padding: 25px;
             border-radius: 12px;
@@ -112,15 +121,15 @@
         
         .glass-panel:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border-color: rgba(74, 202, 168, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-color: rgba(74, 202, 168, 0.4);
         }
 
-        /* Timeline Specifics */
+        /* Timeline Items */
         .timeline-item {
             border-left: 2px solid #4acaa8;
             padding-left: 20px;
-            margin-bottom: 20px; /* Spacing inside the glass panel */
+            margin-bottom: 20px;
             position: relative;
         }
         .timeline-item::before {
@@ -140,18 +149,16 @@
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
-            letter-spacing: 0.5px;
         }
 
         /* Skill Bars */
         .skill-container { margin-bottom: 25px; }
-        .skill-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 500; }
+        .skill-label { display: flex; justify-content: space-between; margin-bottom: 8px; color: #fff !important; }
         .skill-bar {
             height: 10px;
-            background: #1e293b;
+            background: #334155; /* Dark gray for empty bar */
             border-radius: 5px;
             overflow: hidden;
-            box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
         }
         .skill-fill {
             height: 100%;
@@ -172,20 +179,24 @@
             left: 0;
         }
 
-        /* Form Inputs */
+        /* --- FIX INPUT FORMS (Dark Mode) --- */
         input[type="text"], input[type="email"], textarea {
-            background: rgba(30, 41, 59, 0.6) !important;
+            background-color: #1e293b !important; /* Dark input bg */
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            color: #fff !important;
+            color: #ffffff !important; /* White text when typing */
         }
         input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
             border-color: #4acaa8 !important;
-            box-shadow: 0 0 0 2px rgba(74, 202, 168, 0.2);
+            box-shadow: 0 0 0 1px #4acaa8 !important;
         }
-        
+        ::placeholder {
+            color: #94a3b8 !important;
+        }
+
+        /* Responsive Fixes */
         @media screen and (max-width: 736px) {
             .banner-text-overlay h2 { font-size: 2em; }
-            .banner-text-overlay p { font-size: 0.9em; }
+            .banner-text-overlay p { font-size: 0.8em; }
             #banner-container { height: 350px; }
         }
     </style>
