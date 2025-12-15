@@ -18,30 +18,62 @@
 
         /* Sidebar Glassmorphism */
         #header {
-            background: rgba(15, 23, 42, 0.95) !important; /* Darker Slate */
+            background: rgba(15, 23, 42, 0.98) !important;
             backdrop-filter: blur(10px);
             border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* ADVANCED ANIMATION CONTAINER */
+        /* BANNER & ANIMATION STYLES */
         #about {
             position: relative;
+            padding: 0;
             overflow: hidden;
         }
 
-        /* The Canvas */
-        #network-canvas {
+        .image.main {
+            margin: 0;
+            position: relative;
+        }
+
+        /* The Signal Canvas */
+        #signal-canvas {
             width: 100%;
-            height: 400px; /* Taller for better visual */
-            background: linear-gradient(135deg, #0f172a 0%, #000000 100%); /* Deep Cyber Dark */
-            border-bottom: 2px solid #4acaa8;
+            height: 450px;
+            background: linear-gradient(to bottom, #0b0f19 0%, #1a2634 100%);
             display: block;
-            cursor: crosshair; /* Adds to the technical feel */
+            border-bottom: 2px solid #4acaa8;
         }
         
-        /* Overlay text on top of canvas if needed, mostly handled by section below */
+        /* Overlay Text on Banner */
+        .banner-text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            width: 80%;
+            pointer-events: none; /* Let mouse pass through to canvas */
+        }
         
-        /* Timeline for Experience Section */
+        .banner-text-overlay h2 {
+            font-size: 3em;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(74, 202, 168, 0.8);
+            margin-bottom: 0.2em;
+        }
+        
+        .banner-text-overlay p {
+            font-size: 1.2em;
+            color: rgba(255,255,255,0.8);
+            background: rgba(0,0,0,0.3);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 202, 168, 0.3);
+        }
+
+        /* Timeline for Experience */
         .timeline-item {
             border-left: 2px solid #4acaa8;
             padding-left: 20px;
@@ -57,7 +89,7 @@
             height: 10px;
             background: #4acaa8;
             border-radius: 50%;
-            box-shadow: 0 0 10px #4acaa8; /* Glowing dots */
+            box-shadow: 0 0 10px #4acaa8;
         }
         .timeline-date {
             font-size: 0.85em;
@@ -81,7 +113,7 @@
             background: linear-gradient(90deg, #4acaa8, #2e8b73);
             width: 0%; 
             transition: width 1.5s ease-out;
-            box-shadow: 0 0 8px rgba(74, 202, 168, 0.6); /* Glowing bars */
+            box-shadow: 0 0 10px rgba(74, 202, 168, 0.5);
         }
         
         /* Project Cards */
@@ -103,6 +135,11 @@
         ul.certs { list-style: none; padding-left: 0; }
         ul.certs li { margin-bottom: 10px; }
         ul.certs li:before { content: "✓ "; color: #4acaa8; font-weight: bold; }
+        
+        /* Responsive Text */
+        @media screen and (max-width: 736px) {
+            .banner-text-overlay h2 { font-size: 1.8em; }
+        }
     </style>
 </head>
 <body class="is-preload">
@@ -138,10 +175,16 @@
 
             <section id="about">
                 <div class="image main" data-position="center">
-                    <canvas id="network-canvas"></canvas>
+                    <canvas id="signal-canvas"></canvas>
+                    
+                    <div class="banner-text-overlay">
+                        <h2 data-aos="zoom-in">Kabir Hossain Tutul</h2>
+                        <p data-aos="fade-up" data-aos-delay="200">Analyzing Signals. Securing Networks.</p>
+                    </div>
                 </div>
                 
                 <div class="container">
+                    <br />
                     <header class="major" data-aos="fade-up">
                         <h2>Professional Summary</h2>
                         <p>Bridging Network Security, IT Administration, and Engineering.</p>
@@ -242,261 +285,4 @@
 
                     <div class="skill-container" data-aos="fade-up">
                         <div class="skill-label"><span>Networking & Security (CCNA, Fortinet, Wireshark, VPN)</span><span>95%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="95%"></div></div>
-                    </div>
-
-                    <div class="skill-container" data-aos="fade-up" data-aos-delay="100">
-                        <div class="skill-label"><span>IT Admin (Windows Server, Active Directory, Canvas LMS)</span><span>90%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
-                    </div>
-
-                    <div class="skill-container" data-aos="fade-up" data-aos-delay="200">
-                        <div class="skill-label"><span>Programming (Python, C/C++, JavaScript, React, Node.js)</span><span>85%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div>
-                    </div>
-                    
-                     <div class="skill-container" data-aos="fade-up" data-aos-delay="300">
-                        <div class="skill-label"><span>Design (Adobe Illustrator, Photoshop)</span><span>90%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="projects">
-                <div class="container">
-                    <h3 data-aos="fade-right">Projects & Research</h3>
-                    
-                    <div class="project-card" data-aos="fade-up">
-                        <h4>Wavelet-Based EEG Signal Analysis</h4>
-                        <p><strong>Publication:</strong> Science World Journal (2020).<br>
-                        Researched and published a paper on detecting small abnormalities in EEG signals for emergency medical applications.</p>
-                    </div>
-
-                    <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-                        <h4>Interactive Industrial Training Management System</h4>
-                        <p>Developed a web-based management system using <strong>WordPress, HTML, CSS, and MySQL</strong>. Features included user management, automated report generation, and location tracking.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="contact">
-                <div class="container">
-                    <h3 data-aos="fade-right">Contact Me</h3>
-                    <p>Available for opportunities in IT Security and Computer Engineering.</p>
-                    
-                    <div class="row">
-                        <div class="col-12" data-aos="fade-up">
-                            <ul class="feature-icons">
-                                <li class="icon solid fa-envelope"><a href="mailto:khtutul@gmail.com">khtutul@gmail.com</a></li>
-                                <li class="icon solid fa-phone">(+1) 813-369-8107</li>
-                                <li class="icon solid fa-map-marker-alt">Tampa, FL 33613</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <form method="post" action="#">
-                        <div class="row gtr-uniform">
-                            <div class="col-6 col-12-xsmall" data-aos="fade-up"><input type="text" name="name" id="name" placeholder="Name" /></div>
-                            <div class="col-6 col-12-xsmall" data-aos="fade-up" data-aos-delay="100"><input type="email" name="email" id="email" placeholder="Email" /></div>
-                            <div class="col-12" data-aos="fade-up" data-aos-delay="200"><input type="text" name="subject" id="subject" placeholder="Subject" /></div>
-                            <div class="col-12" data-aos="fade-up" data-aos-delay="300"><textarea name="message" id="message" placeholder="Message" rows="6"></textarea></div>
-                            <div class="col-12">
-                                <ul class="actions">
-                                    <li><input type="submit" class="primary" value="Send Message" /></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </section>
-
-        </div>
-
-        <section id="footer">
-            <div class="container">
-                <ul class="copyright">
-                    <li>&copy; Kabir Hossain Tutul. All rights reserved.</li><li>Design: <a href="http://khtutul.me">KHTUTUL</a></li>
-                </ul>
-            </div>
-        </section>
-
-    </div>
-
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/jquery.scrollex.min.js"></script>
-    <script src="assets/js/jquery.scrolly.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // 1. Initialize Scroll Animations (AOS)
-        AOS.init({ duration: 1000, offset: 100, once: true });
-
-        // 2. Skill Bar Trigger
-        window.addEventListener('scroll', function() {
-            var skillsSection = document.getElementById('skills');
-            if(skillsSection) {
-                var position = skillsSection.getBoundingClientRect();
-                if(position.top < window.innerHeight && position.bottom >= 0) {
-                    document.querySelectorAll('.skill-fill').forEach(bar => {
-                        bar.style.width = bar.getAttribute('data-width');
-                    });
-                }
-            }
-        });
-
-        /* 3. ADVANCED NEURAL NETWORK ANIMATION
-           - Interactive Mouse Magnetism
-           - Glowing Nodes
-           - Pulsing Effect
-        */
-        const canvas = document.getElementById('network-canvas');
-        const ctx = canvas.getContext('2d');
-        let particlesArray;
-
-        // Set canvas size
-        canvas.width = canvas.parentElement.offsetWidth;
-        canvas.height = 400;
-
-        // Mouse interaction object
-        let mouse = {
-            x: null,
-            y: null,
-            radius: 150 // Radius of interaction
-        }
-
-        window.addEventListener('mousemove', function(event) {
-            // Calculate mouse position relative to canvas
-            const rect = canvas.getBoundingClientRect();
-            mouse.x = event.clientX - rect.left;
-            mouse.y = event.clientY - rect.top;
-        });
-
-        // Clear mouse position when leaving canvas area
-        window.addEventListener('mouseout', function() {
-            mouse.x = undefined;
-            mouse.y = undefined;
-        });
-
-        // Resize Canvas dynamically
-        window.addEventListener('resize', function() {
-            canvas.width = canvas.parentElement.offsetWidth;
-            canvas.height = 400;
-            initParticles();
-        });
-
-        // Particle Class
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = (Math.random() * 3) + 1;
-                this.baseX = this.x;
-                this.baseY = this.y;
-                // Speed
-                this.density = (Math.random() * 30) + 1;
-                this.speedX = (Math.random() * 1) - 0.5;
-                this.speedY = (Math.random() * 1) - 0.5;
-            }
-
-            update() {
-                // Movement
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                // Mouse Interaction (Magnetism)
-                if (mouse.x != undefined) {
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
-                    let distance = Math.sqrt(dx*dx + dy*dy);
-                    
-                    if (distance < mouse.radius) {
-                        // Move particles towards mouse
-                        const forceDirectionX = dx / distance;
-                        const forceDirectionY = dy / distance;
-                        const maxDistance = mouse.radius;
-                        const force = (maxDistance - distance) / maxDistance;
-                        const directionX = forceDirectionX * force * this.density;
-                        const directionY = forceDirectionY * force * this.density;
-                        
-                        this.x += directionX;
-                        this.y += directionY;
-                    }
-                }
-
-                // Bounce off edges
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = '#4acaa8';
-                
-                // NEON GLOW EFFECT
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = "#4acaa8";
-                
-                ctx.fill();
-                // Reset shadow to avoid affecting lines too much
-                ctx.shadowBlur = 0;
-            }
-        }
-
-        function initParticles() {
-            particlesArray = [];
-            // Calculate number of particles based on screen size
-            let numberOfParticles = (canvas.height * canvas.width) / 8000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-
-        function connectParticles() {
-            let opacityValue = 1;
-            for (let a = 0; a < particlesArray.length; a++) {
-                for (let b = a; b < particlesArray.length; b++) {
-                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
-                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
-                    
-                    if (distance < (canvas.width/7) * (canvas.height/7)) {
-                        opacityValue = 1 - (distance / 20000);
-                        ctx.strokeStyle = 'rgba(74, 202, 168,' + opacityValue + ')';
-                        ctx.lineWidth = 1;
-                        
-                        // Add slight glow to lines too
-                        ctx.shadowBlur = 5;
-                        ctx.shadowColor = "rgba(74, 202, 168, 0.5)";
-                        
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                        ctx.stroke();
-                        ctx.shadowBlur = 0; // Reset
-                    }
-                }
-            }
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-            }
-            connectParticles();
-        }
-
-        // Run
-        initParticles();
-        animate();
-    </script>
-
-</body>
-</html>
+                        <div class="skill
