@@ -285,4 +285,176 @@
 
                     <div class="skill-container" data-aos="fade-up">
                         <div class="skill-label"><span>Networking & Security (CCNA, Fortinet, Wireshark, VPN)</span><span>95%</span></div>
-                        <div class="skill
+                        <div class="skill-bar"><div class="skill-fill" data-width="95%"></div></div>
+                    </div>
+
+                    <div class="skill-container" data-aos="fade-up" data-aos-delay="100">
+                        <div class="skill-label"><span>IT Admin (Windows Server, Active Directory, Canvas LMS)</span><span>90%</span></div>
+                        <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
+                    </div>
+
+                    <div class="skill-container" data-aos="fade-up" data-aos-delay="200">
+                        <div class="skill-label"><span>Programming (Python, C/C++, JavaScript, React, Node.js)</span><span>85%</span></div>
+                        <div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div>
+                    </div>
+                    
+                     <div class="skill-container" data-aos="fade-up" data-aos-delay="300">
+                        <div class="skill-label"><span>Design (Adobe Illustrator, Photoshop)</span><span>90%</span></div>
+                        <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="projects">
+                <div class="container">
+                    <h3 data-aos="fade-right">Projects & Research</h3>
+                    
+                    <div class="project-card" data-aos="fade-up">
+                        <h4>Wavelet-Based EEG Signal Analysis</h4>
+                        <p><strong>Publication:</strong> Science World Journal (2020).<br>
+                        Researched and published a paper on detecting small abnormalities in EEG signals for emergency medical applications.</p>
+                    </div>
+
+                    <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                        <h4>Interactive Industrial Training Management System</h4>
+                        <p>Developed a web-based management system using <strong>WordPress, HTML, CSS, and MySQL</strong>. Features included user management, automated report generation, and location tracking.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact">
+                <div class="container">
+                    <h3 data-aos="fade-right">Contact Me</h3>
+                    <p>Available for opportunities in IT Security and Computer Engineering.</p>
+                    
+                    <div class="row">
+                        <div class="col-12" data-aos="fade-up">
+                            <ul class="feature-icons">
+                                <li class="icon solid fa-envelope"><a href="mailto:khtutul@gmail.com">khtutul@gmail.com</a></li>
+                                <li class="icon solid fa-phone">(+1) 813-369-8107</li>
+                                <li class="icon solid fa-map-marker-alt">Tampa, FL 33613</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <form method="post" action="#">
+                        <div class="row gtr-uniform">
+                            <div class="col-6 col-12-xsmall" data-aos="fade-up"><input type="text" name="name" id="name" placeholder="Name" /></div>
+                            <div class="col-6 col-12-xsmall" data-aos="fade-up" data-aos-delay="100"><input type="email" name="email" id="email" placeholder="Email" /></div>
+                            <div class="col-12" data-aos="fade-up" data-aos-delay="200"><input type="text" name="subject" id="subject" placeholder="Subject" /></div>
+                            <div class="col-12" data-aos="fade-up" data-aos-delay="300"><textarea name="message" id="message" placeholder="Message" rows="6"></textarea></div>
+                            <div class="col-12">
+                                <ul class="actions">
+                                    <li><input type="submit" class="primary" value="Send Message" /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+        </div>
+
+        <section id="footer">
+            <div class="container">
+                <ul class="copyright">
+                    <li>&copy; Kabir Hossain Tutul. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // 1. Initialize Scroll Animations (AOS)
+        AOS.init({ duration: 1000, offset: 100, once: true });
+
+        // 2. Skill Bar Trigger
+        window.addEventListener('scroll', function() {
+            var skillsSection = document.getElementById('skills');
+            if(skillsSection) {
+                var position = skillsSection.getBoundingClientRect();
+                if(position.top < window.innerHeight && position.bottom >= 0) {
+                    document.querySelectorAll('.skill-fill').forEach(bar => {
+                        bar.style.width = bar.getAttribute('data-width');
+                    });
+                }
+            }
+        });
+
+        /* 3. SIGNAL WAVEFORM ANIMATION (Oscilloscope style) */
+        const canvas = document.getElementById('signal-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = canvas.parentElement.offsetWidth;
+        canvas.height = 450;
+
+        let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+
+        window.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = 450;
+        });
+
+        // Wave Configuration
+        const waves = [
+            { y: canvas.height / 2, length: 0.01, amplitude: 50, speed: 0.02, color: 'rgba(74, 202, 168, 0.4)' }, // Green
+            { y: canvas.height / 2, length: 0.02, amplitude: 30, speed: 0.01, color: 'rgba(0, 255, 255, 0.3)' }, // Cyan
+            { y: canvas.height / 2, length: 0.005, amplitude: 80, speed: 0.03, color: 'rgba(74, 202, 168, 0.1)' } // Faint Green
+        ];
+
+        let increment = 0;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            // Clear with slight transparency for trail effect? No, clean clear looks better for signals.
+            ctx.fillStyle = 'rgba(11, 15, 25, 1)'; // Matches background
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            increment += 0.02;
+
+            waves.forEach(wave => {
+                ctx.beginPath();
+                ctx.moveTo(0, wave.y);
+
+                for (let i = 0; i < canvas.width; i++) {
+                    // Base Sine Wave
+                    let y = Math.sin(i * wave.length + increment * (wave.speed * 100)) * wave.amplitude;
+                    
+                    // Mouse Interaction: Disruption
+                    let dist = Math.abs(i - mouse.x);
+                    if (dist < 150) {
+                        const force = (150 - dist) / 150;
+                        // Add "noise" or higher amplitude near mouse
+                        y += Math.sin(i * 0.1 + increment * 5) * (force * 50);
+                    }
+
+                    ctx.lineTo(i, wave.y + y);
+                }
+
+                ctx.strokeStyle = wave.color;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            });
+        }
+
+        animate();
+    </script>
+
+</body>
+</html>
