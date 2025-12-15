@@ -23,57 +23,66 @@
             border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* BANNER & ANIMATION STYLES */
+        /* --- BANNER STYLES (Binary Rain) --- */
         #about {
             position: relative;
             padding: 0;
             overflow: hidden;
+            background: #000; /* Fallback color if canvas fails */
         }
 
         .image.main {
             margin: 0;
             position: relative;
+            height: 400px; /* Force height so it is never invisible */
+            background-color: #0b0f19; /* Dark background */
         }
 
-        /* The Signal Canvas */
-        #signal-canvas {
-            width: 100%;
-            height: 450px;
-            background: linear-gradient(to bottom, #0b0f19 0%, #1a2634 100%);
+        /* The Canvas */
+        #binary-canvas {
             display: block;
-            border-bottom: 2px solid #4acaa8;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Behind text */
         }
         
-        /* Overlay Text on Banner */
+        /* Overlay Text */
         .banner-text-overlay {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            z-index: 10;
-            width: 80%;
-            pointer-events: none; /* Let mouse pass through to canvas */
+            z-index: 2; /* On top of canvas */
+            width: 90%;
+            pointer-events: none;
         }
         
         .banner-text-overlay h2 {
             font-size: 3em;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(74, 202, 168, 0.8);
+            color: #ffffff;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(74, 202, 168, 0.9);
             margin-bottom: 0.2em;
+            letter-spacing: 2px;
         }
         
         .banner-text-overlay p {
-            font-size: 1.2em;
-            color: rgba(255,255,255,0.8);
-            background: rgba(0,0,0,0.3);
+            font-size: 1.1em;
+            color: #4acaa8; /* Theme Green */
+            background: rgba(0,0,0,0.6);
             display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            border: 1px solid rgba(74, 202, 168, 0.3);
+            padding: 8px 20px;
+            border-radius: 4px;
+            border: 1px solid rgba(74, 202, 168, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* Timeline for Experience */
+        /* Timeline for Experience Section */
         .timeline-item {
             border-left: 2px solid #4acaa8;
             padding-left: 20px;
@@ -136,9 +145,10 @@
         ul.certs li { margin-bottom: 10px; }
         ul.certs li:before { content: "✓ "; color: #4acaa8; font-weight: bold; }
         
-        /* Responsive Text */
+        /* Responsive adjustments */
         @media screen and (max-width: 736px) {
             .banner-text-overlay h2 { font-size: 1.8em; }
+            .image.main { height: 300px; }
         }
     </style>
 </head>
@@ -174,12 +184,12 @@
         <div id="main">
 
             <section id="about">
-                <div class="image main" data-position="center">
-                    <canvas id="signal-canvas"></canvas>
+                <div class="image main" id="banner-container">
+                    <canvas id="binary-canvas"></canvas>
                     
                     <div class="banner-text-overlay">
                         <h2 data-aos="zoom-in">Kabir Hossain Tutul</h2>
-                        <p data-aos="fade-up" data-aos-delay="200">Analyzing Signals. Securing Networks.</p>
+                        <p data-aos="fade-up" data-aos-delay="200">Data Security | Network Operations | Signal Processing</p>
                     </div>
                 </div>
                 
@@ -391,69 +401,57 @@
             }
         });
 
-        /* 3. SIGNAL WAVEFORM ANIMATION (Oscilloscope style) */
-        const canvas = document.getElementById('signal-canvas');
-        const ctx = canvas.getContext('2d');
+        /* 3. BINARY DATA RAIN ANIMATION */
+        // We wrap this in 'load' to make sure the canvas exists before drawing
+        window.addEventListener('load', function() {
+            const canvas = document.getElementById('binary-canvas');
+            const ctx = canvas.getContext('2d');
 
-        canvas.width = canvas.parentElement.offsetWidth;
-        canvas.height = 450;
-
-        let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
-
-        window.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            mouse.x = e.clientX - rect.left;
-            mouse.y = e.clientY - rect.top;
-        });
-
-        window.addEventListener('resize', () => {
+            // Force initial size
             canvas.width = canvas.parentElement.offsetWidth;
-            canvas.height = 450;
-        });
+            canvas.height = canvas.parentElement.offsetHeight;
 
-        // Wave Configuration
-        const waves = [
-            { y: canvas.height / 2, length: 0.01, amplitude: 50, speed: 0.02, color: 'rgba(74, 202, 168, 0.4)' }, // Green
-            { y: canvas.height / 2, length: 0.02, amplitude: 30, speed: 0.01, color: 'rgba(0, 255, 255, 0.3)' }, // Cyan
-            { y: canvas.height / 2, length: 0.005, amplitude: 80, speed: 0.03, color: 'rgba(74, 202, 168, 0.1)' } // Faint Green
-        ];
-
-        let increment = 0;
-
-        function animate() {
-            requestAnimationFrame(animate);
-            // Clear with slight transparency for trail effect? No, clean clear looks better for signals.
-            ctx.fillStyle = 'rgba(11, 15, 25, 1)'; // Matches background
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            increment += 0.02;
-
-            waves.forEach(wave => {
-                ctx.beginPath();
-                ctx.moveTo(0, wave.y);
-
-                for (let i = 0; i < canvas.width; i++) {
-                    // Base Sine Wave
-                    let y = Math.sin(i * wave.length + increment * (wave.speed * 100)) * wave.amplitude;
-                    
-                    // Mouse Interaction: Disruption
-                    let dist = Math.abs(i - mouse.x);
-                    if (dist < 150) {
-                        const force = (150 - dist) / 150;
-                        // Add "noise" or higher amplitude near mouse
-                        y += Math.sin(i * 0.1 + increment * 5) * (force * 50);
-                    }
-
-                    ctx.lineTo(i, wave.y + y);
-                }
-
-                ctx.strokeStyle = wave.color;
-                ctx.lineWidth = 2;
-                ctx.stroke();
+            // Resize handling
+            window.addEventListener('resize', () => {
+                canvas.width = canvas.parentElement.offsetWidth;
+                canvas.height = canvas.parentElement.offsetHeight;
             });
-        }
 
-        animate();
+            // Binary characters
+            const binary = "10";
+            // Columns based on font size
+            const fontSize = 16;
+            const columns = canvas.width / fontSize;
+
+            // Array to track drops (one per column)
+            const drops = [];
+            for(let x = 0; x < columns; x++) {
+                drops[x] = 1;
+            }
+
+            function draw() {
+                // Semi-transparent black to create trail effect
+                ctx.fillStyle = 'rgba(11, 15, 25, 0.05)'; 
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#4acaa8'; // Your Theme Green
+                ctx.font = fontSize + 'px monospace';
+
+                for(let i = 0; i < drops.length; i++) {
+                    const text = binary.charAt(Math.floor(Math.random() * binary.length));
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    // Reset drop to top randomly
+                    if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+
+            // Run animation loop
+            setInterval(draw, 33);
+        });
     </script>
 
 </body>
