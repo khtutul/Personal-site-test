@@ -10,15 +10,27 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* Modern Font */
-        body, h1, h2, h3, h4, h5, p, a, li { font-family: 'Poppins', sans-serif !important; }
+        /* --- GLOBAL DARK THEME --- */
+        body {
+            font-family: 'Poppins', sans-serif !important;
+            background-color: #0f172a; /* Deep Slate Blue */
+            color: #94a3b8; /* Soft Gray Text */
+            /* Subtle Tech Grid Pattern */
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Typography overrides for Dark Mode */
+        h1, h2, h3, h4, h5, h6, strong, b {
+            color: #e2e8f0 !important; /* Bright White-ish */
+        }
         
-        /* Smooth Scroll */
-        html { scroll-behavior: smooth; }
+        a { color: #4acaa8 !important; }
 
         /* Sidebar Glassmorphism */
         #header {
-            background: rgba(15, 23, 42, 0.98) !important;
+            background: rgba(11, 15, 25, 0.95) !important;
             backdrop-filter: blur(10px);
             border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
@@ -29,6 +41,7 @@
             padding: 0;
             overflow: hidden;
             background: #0b0f19;
+            margin-bottom: 2em;
         }
 
         #banner-container {
@@ -36,7 +49,7 @@
             position: relative;
             width: 100%;
             height: 450px; 
-            background: #0b0f19; /* Deep dark background */
+            background: #0b0f19;
             overflow: hidden;
             border-bottom: 2px solid #4acaa8;
         }
@@ -51,7 +64,6 @@
             z-index: 1; 
         }
         
-        /* Overlay Text */
         .banner-text-overlay {
             position: absolute;
             top: 50%;
@@ -76,7 +88,7 @@
             font-size: 1.1em;
             color: #4acaa8;
             font-family: 'Courier New', monospace;
-            background: rgba(0,0,0,0.85); /* Darker box for readability */
+            background: rgba(0,0,0,0.85);
             display: inline-block;
             padding: 12px 25px;
             border-radius: 4px;
@@ -87,11 +99,28 @@
             box-shadow: 0 0 15px rgba(0,0,0,0.8);
         }
 
-        /* Timeline for Experience Section */
+        /* --- CONTENT CARDS (Glass Effect) --- */
+        /* Applied to Timeline Items, Skill Sections, etc. */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.4); /* Semi-transparent dark blue */
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .glass-panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(74, 202, 168, 0.3);
+        }
+
+        /* Timeline Specifics */
         .timeline-item {
             border-left: 2px solid #4acaa8;
             padding-left: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 20px; /* Spacing inside the glass panel */
             position: relative;
         }
         .timeline-item::before {
@@ -106,49 +135,53 @@
             box-shadow: 0 0 10px #4acaa8;
         }
         .timeline-date {
-            font-size: 0.85em;
-            color: #4acaa8;
+            font-size: 0.9em;
+            color: #4acaa8 !important;
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
+            letter-spacing: 0.5px;
         }
 
         /* Skill Bars */
-        .skill-container { margin-bottom: 20px; }
-        .skill-label { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .skill-container { margin-bottom: 25px; }
+        .skill-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 500; }
         .skill-bar {
-            height: 8px;
-            background: #333;
-            border-radius: 4px;
+            height: 10px;
+            background: #1e293b;
+            border-radius: 5px;
             overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
         }
         .skill-fill {
             height: 100%;
             background: linear-gradient(90deg, #4acaa8, #2e8b73);
             width: 0%; 
             transition: width 1.5s ease-out;
-            box-shadow: 0 0 10px rgba(74, 202, 168, 0.5);
+            box-shadow: 0 0 10px rgba(74, 202, 168, 0.4);
         }
         
-        /* Project Cards */
-        .project-card {
-            background: rgba(255,255,255,0.03);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            border-color: #4acaa8;
-        }
-
         /* Certifications List */
         ul.certs { list-style: none; padding-left: 0; }
-        ul.certs li { margin-bottom: 10px; }
-        ul.certs li:before { content: "✓ "; color: #4acaa8; font-weight: bold; }
+        ul.certs li { margin-bottom: 12px; padding-left: 25px; position: relative; }
+        ul.certs li:before { 
+            content: "✓"; 
+            color: #4acaa8; 
+            font-weight: bold; 
+            position: absolute;
+            left: 0;
+        }
+
+        /* Form Inputs */
+        input[type="text"], input[type="email"], textarea {
+            background: rgba(30, 41, 59, 0.6) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: #fff !important;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+            border-color: #4acaa8 !important;
+            box-shadow: 0 0 0 2px rgba(74, 202, 168, 0.2);
+        }
         
         @media screen and (max-width: 736px) {
             .banner-text-overlay h2 { font-size: 2em; }
@@ -218,23 +251,25 @@
                 <div class="container">
                     <h3 data-aos="fade-right">Education & Certifications</h3>
                     
-                    <div class="timeline-item" data-aos="fade-up">
-                        <h4>Master of Science in Electrical Engineering</h4>
-                        <span class="timeline-date">Jan 2024 – Dec 2025</span>
-                        <p><strong>University of South Florida</strong>, Tampa, FL<br>
-                        Concentration: <strong>Data Security</strong><br>
-                        <em>Relevant Coursework: Advanced Cyber Security, Cryptography, Computer Networks, Signal Processing, AI in Cyber Physical Systems.</em></p>
+                    <div class="glass-panel" data-aos="fade-up">
+                        <div class="timeline-item">
+                            <h4>Master of Science in Electrical Engineering</h4>
+                            <span class="timeline-date">Jan 2024 – Dec 2025</span>
+                            <p><strong>University of South Florida</strong>, Tampa, FL<br>
+                            Concentration: <strong>Data Security</strong><br>
+                            <em>Relevant Coursework: Advanced Cyber Security, Cryptography, Computer Networks, Signal Processing, AI in Cyber Physical Systems.</em></p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <h4>Bachelor of Science in Electronics & Telecommunication</h4>
+                            <span class="timeline-date">2014 – 2018</span>
+                            <p><strong>Daffodil International University</strong>, Dhaka, Bangladesh<br>
+                            CGPA: 3.77 / 4.00<br>
+                            <em>Thesis: Wavelet-Based EEG Signal Analysis</em></p>
+                        </div>
                     </div>
 
-                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
-                        <h4>Bachelor of Science in Electronics & Telecommunication</h4>
-                        <span class="timeline-date">2014 – 2018</span>
-                        <p><strong>Daffodil International University</strong>, Dhaka, Bangladesh<br>
-                        CGPA: 3.77 / 4.00<br>
-                        <em>Thesis: Wavelet-Based EEG Signal Analysis</em></p>
-                    </div>
-
-                    <div data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-panel" data-aos="fade-up" data-aos-delay="200">
                         <h4>Certifications</h4>
                         <ul class="certs">
                             <li><strong>Cisco Certified Network Associate (CCNA):</strong> Routing and Switching</li>
@@ -248,49 +283,57 @@
                 <div class="container">
                     <h3 data-aos="fade-right">Professional Experience</h3>
                     
-                    <div class="timeline-item" data-aos="fade-up">
-                        <h4>Graduate Student Assistant – Digital Learning Support</h4>
-                        <span class="timeline-date">May 2024 – Dec 2025</span>
-                        <p><strong>University of South Florida (Innovative Education)</strong>, Tampa, FL</p>
-                        <ul>
-                            <li>Provided live technical support for distance learning technologies.</li>
-                            <li>Administered and troubleshot the <strong>Canvas LMS</strong>, resolving user issues.</li>
-                            <li>Created digital resources for university-wide implementation.</li>
-                            <li>Collaborated with faculty to improve the virtual classroom experience.</li>
-                        </ul>
+                    <div class="glass-panel" data-aos="fade-up">
+                        <div class="timeline-item">
+                            <h4>Graduate Student Assistant – Digital Learning Support</h4>
+                            <span class="timeline-date">May 2024 – Dec 2025</span>
+                            <p><strong>University of South Florida (Innovative Education)</strong>, Tampa, FL</p>
+                            <ul>
+                                <li>Provided live technical support for distance learning technologies.</li>
+                                <li>Administered and troubleshot the <strong>Canvas LMS</strong>, resolving user issues.</li>
+                                <li>Created digital resources for university-wide implementation.</li>
+                                <li>Collaborated with faculty to improve the virtual classroom experience.</li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
-                        <h4>Frontend Developer & Graphic Designer (Freelance)</h4>
-                        <span class="timeline-date">Jan 2022 – Present</span>
-                        <p><strong>Remote</strong></p>
-                        <ul>
-                            <li>Designed and developed responsive frontend web interfaces using HTML, CSS, and React.</li>
-                            <li>Specialized in vector graphics/branding as an Adobe Illustrator Expert.</li>
-                        </ul>
+                    <div class="glass-panel" data-aos="fade-up" data-aos-delay="100">
+                        <div class="timeline-item">
+                            <h4>Frontend Developer & Graphic Designer (Freelance)</h4>
+                            <span class="timeline-date">Jan 2022 – Present</span>
+                            <p><strong>Remote</strong></p>
+                            <ul>
+                                <li>Designed and developed responsive frontend web interfaces using HTML, CSS, and React.</li>
+                                <li>Specialized in vector graphics/branding as an Adobe Illustrator Expert.</li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
-                        <h4>IT Administrator</h4>
-                        <span class="timeline-date">Jan 2023 – Dec 2023</span>
-                        <p><strong>PETRONAS Bangladesh (United Group)</strong></p>
-                        <ul>
-                            <li>Managed Enterprise Risk and Cyber Security protocols.</li>
-                            <li>Administered ERP databases and maintained local network administration.</li>
-                            <li>Provided comprehensive hardware/software troubleshooting.</li>
-                        </ul>
+                    <div class="glass-panel" data-aos="fade-up" data-aos-delay="200">
+                        <div class="timeline-item">
+                            <h4>IT Administrator</h4>
+                            <span class="timeline-date">Jan 2023 – Dec 2023</span>
+                            <p><strong>PETRONAS Bangladesh (United Group)</strong></p>
+                            <ul>
+                                <li>Managed Enterprise Risk and Cyber Security protocols.</li>
+                                <li>Administered ERP databases and maintained local network administration.</li>
+                                <li>Provided comprehensive hardware/software troubleshooting.</li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
-                        <h4>Senior Engineer, Core and Network Operation</h4>
-                        <span class="timeline-date">April 2018 – Dec 2022</span>
-                        <p><strong>Bangladesh International Gateway Limited</strong></p>
-                        <ul>
-                            <li>Planned and optimized optical networks and managed QoS.</li>
-                            <li>Configured Cisco/Huawei devices (SBC, Switches) for network security.</li>
-                            <li>Analyzed network performance and implemented access controls.</li>
-                            <li>Troubleshot complex Tier 2/3 network faults and SIP logs.</li>
-                        </ul>
+                    <div class="glass-panel" data-aos="fade-up" data-aos-delay="300">
+                        <div class="timeline-item">
+                            <h4>Senior Engineer, Core and Network Operation</h4>
+                            <span class="timeline-date">April 2018 – Dec 2022</span>
+                            <p><strong>Bangladesh International Gateway Limited</strong></p>
+                            <ul>
+                                <li>Planned and optimized optical networks and managed QoS.</li>
+                                <li>Configured Cisco/Huawei devices (SBC, Switches) for network security.</li>
+                                <li>Analyzed network performance and implemented access controls.</li>
+                                <li>Troubleshot complex Tier 2/3 network faults and SIP logs.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -300,24 +343,26 @@
                     <h3 data-aos="fade-right">Technical Skills</h3>
                     <p>A versatile skillset across Networking, Security, Development, and Design.</p>
 
-                    <div class="skill-container" data-aos="fade-up">
-                        <div class="skill-label"><span>Networking & Security (CCNA, Fortinet, Wireshark, VPN)</span><span>95%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="95%"></div></div>
-                    </div>
+                    <div class="glass-panel">
+                        <div class="skill-container" data-aos="fade-up">
+                            <div class="skill-label"><span>Networking & Security (CCNA, Fortinet, Wireshark, VPN)</span><span>95%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="95%"></div></div>
+                        </div>
 
-                    <div class="skill-container" data-aos="fade-up" data-aos-delay="100">
-                        <div class="skill-label"><span>IT Admin (Windows Server, Active Directory, Canvas LMS)</span><span>90%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
-                    </div>
+                        <div class="skill-container" data-aos="fade-up" data-aos-delay="100">
+                            <div class="skill-label"><span>IT Admin (Windows Server, Active Directory, Canvas LMS)</span><span>90%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
+                        </div>
 
-                    <div class="skill-container" data-aos="fade-up" data-aos-delay="200">
-                        <div class="skill-label"><span>Programming (Python, C/C++, JavaScript, React, Node.js)</span><span>85%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div>
-                    </div>
-                    
-                     <div class="skill-container" data-aos="fade-up" data-aos-delay="300">
-                        <div class="skill-label"><span>Design (Adobe Illustrator, Photoshop)</span><span>90%</span></div>
-                        <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
+                        <div class="skill-container" data-aos="fade-up" data-aos-delay="200">
+                            <div class="skill-label"><span>Programming (Python, C/C++, JavaScript, React, Node.js)</span><span>85%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div>
+                        </div>
+                        
+                         <div class="skill-container" data-aos="fade-up" data-aos-delay="300">
+                            <div class="skill-label"><span>Design (Adobe Illustrator, Photoshop)</span><span>90%</span></div>
+                            <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -326,13 +371,13 @@
                 <div class="container">
                     <h3 data-aos="fade-right">Projects & Research</h3>
                     
-                    <div class="project-card" data-aos="fade-up">
+                    <div class="glass-panel" data-aos="fade-up">
                         <h4>Wavelet-Based EEG Signal Analysis</h4>
                         <p><strong>Publication:</strong> Science World Journal (2020).<br>
                         Researched and published a paper on detecting small abnormalities in EEG signals for emergency medical applications.</p>
                     </div>
 
-                    <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-panel" data-aos="fade-up" data-aos-delay="100">
                         <h4>Interactive Industrial Training Management System</h4>
                         <p>Developed a web-based management system using <strong>WordPress, HTML, CSS, and MySQL</strong>. Features included user management, automated report generation, and location tracking.</p>
                     </div>
