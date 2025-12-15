@@ -11,39 +11,35 @@
 
     <style>
         /* --- CRITICAL DARK THEME OVERRIDES --- */
-        /* We use !important to overwrite the original template's white background */
-        
         body, html {
             background-color: #0f172a !important; /* Deep Dark Blue */
             color: #cbd5e1 !important; /* Light Silver Text */
         }
 
-        /* The template wraps everything in these IDs, they must be dark too */
         #wrapper, #main, #footer {
             background-color: #0f172a !important;
         }
 
-        /* Sidebar Glassmorphism */
         #header {
             background: rgba(11, 15, 25, 0.98) !important;
             border-right: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* --- TYPOGRAPHY FIXES (Make text readable) --- */
+        /* Typography Fixes */
         h1, h2, h3, h4, h5, h6, strong, b {
-            color: #ffffff !important; /* Bright White Headers */
+            color: #ffffff !important;
         }
         
         p, li, span {
-            color: #cbd5e1 !important; /* Ensure readability */
+            color: #cbd5e1 !important;
         }
 
         a { 
-            color: #4acaa8 !important; /* Theme Green for links */
+            color: #4acaa8 !important;
             border-bottom-color: rgba(74, 202, 168, 0.5) !important;
         }
 
-        /* --- ANIMATION BANNER --- */
+        /* --- BANNER SECTION --- */
         #about {
             position: relative;
             padding: 0;
@@ -72,7 +68,7 @@
             z-index: 1; 
         }
         
-        /* Banner Text */
+        /* --- NEW: READABILITY SHIELD --- */
         .banner-text-overlay {
             position: absolute;
             top: 50%;
@@ -80,38 +76,54 @@
             transform: translate(-50%, -50%);
             text-align: center;
             z-index: 10;
-            width: 90%;
-            pointer-events: none; 
+            width: 85%;
+            max-width: 800px;
+            pointer-events: none;
+            
+            /* The "Glass Box" to fix readability */
+            background: rgba(11, 15, 25, 0.85); /* Dark semi-transparent background */
+            backdrop-filter: blur(8px); /* Blurs the wave animation behind text */
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(74, 202, 168, 0.2);
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
         }
         
+        /* --- NEW: NAME ANIMATION (Gradient Flow) --- */
         .banner-text-overlay h2 {
             font-size: 3.5em;
-            color: #ffffff !important;
             font-weight: 700;
-            text-shadow: 0 0 20px rgba(74, 202, 168, 0.8);
-            margin-bottom: 0.1em;
+            margin-bottom: 0.2em;
             letter-spacing: 2px;
+            
+            /* The Color Animation */
+            background: linear-gradient(to right, #ffffff 20%, #4acaa8 50%, #ffffff 80%);
+            background-size: 200% auto;
+            color: #ffffff; /* Fallback */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+        }
+        
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
         }
         
         .banner-text-overlay p {
             font-size: 1.1em;
             color: #4acaa8 !important;
             font-family: 'Courier New', monospace;
-            background: rgba(0,0,0,0.85);
-            display: inline-block;
-            padding: 12px 25px;
-            border-radius: 4px;
-            border: 1px solid rgba(74, 202, 168, 0.3);
             text-transform: uppercase;
             letter-spacing: 1px;
-            line-height: 1.6em;
-            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+            margin: 0;
+            font-weight: 600;
         }
 
         /* --- GLASS PANELS (Containers) --- */
-        /* This makes content stand out from the dark background */
         .glass-panel {
-            background: rgba(30, 41, 59, 0.5); /* Slightly lighter than bg */
+            background: rgba(30, 41, 59, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.05);
             padding: 25px;
             border-radius: 12px;
@@ -156,7 +168,7 @@
         .skill-label { display: flex; justify-content: space-between; margin-bottom: 8px; color: #fff !important; }
         .skill-bar {
             height: 10px;
-            background: #334155; /* Dark gray for empty bar */
+            background: #334155;
             border-radius: 5px;
             overflow: hidden;
         }
@@ -179,11 +191,11 @@
             left: 0;
         }
 
-        /* --- FIX INPUT FORMS (Dark Mode) --- */
+        /* Inputs */
         input[type="text"], input[type="email"], textarea {
-            background-color: #1e293b !important; /* Dark input bg */
+            background-color: #1e293b !important;
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            color: #ffffff !important; /* White text when typing */
+            color: #ffffff !important;
         }
         input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
             border-color: #4acaa8 !important;
@@ -193,11 +205,11 @@
             color: #94a3b8 !important;
         }
 
-        /* Responsive Fixes */
         @media screen and (max-width: 736px) {
             .banner-text-overlay h2 { font-size: 2em; }
             .banner-text-overlay p { font-size: 0.8em; }
             #banner-container { height: 350px; }
+            .banner-text-overlay { padding: 20px; width: 90%; }
         }
     </style>
 </head>
@@ -448,10 +460,8 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize AOS
         AOS.init({ duration: 1000, offset: 100, once: true });
 
-        // Skill Bar Trigger
         window.addEventListener('scroll', function() {
             var skillsSection = document.getElementById('skills');
             if(skillsSection) {
@@ -477,7 +487,6 @@
             resizeCanvas();
             window.addEventListener('resize', resizeCanvas);
 
-            // Mouse Interaction
             let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
             container.addEventListener('mousemove', function(e) {
                 const rect = canvas.getBoundingClientRect();
@@ -490,45 +499,34 @@
             const fontSize = 14;
             const columns = canvas.width / fontSize;
             const drops = [];
-            // Init drops
             for(let x = 0; x < columns; x++) {
-                drops[x] = Math.random() * canvas.height; // Random start positions
+                drops[x] = Math.random() * canvas.height; 
             }
 
             // --- PART 2: WAVE CONFIG ---
             const waves = [
-                { length: 0.008, amplitude: 50, speed: 0.04, color: 'rgba(74, 202, 168, 1)', offset: 0 }, // Green
-                { length: 0.015, amplitude: 40, speed: 0.02, color: 'rgba(0, 190, 255, 0.8)', offset: 2 },  // Blue
+                { length: 0.008, amplitude: 50, speed: 0.04, color: 'rgba(74, 202, 168, 1)', offset: 0 }, 
+                { length: 0.015, amplitude: 40, speed: 0.02, color: 'rgba(0, 190, 255, 0.8)', offset: 2 }, 
             ];
             let increment = 0;
 
             function animate() {
-                // 1. Draw "Trailing" Background for the Rain
-                // We use a slight transparency black instead of clearRect to leave trails
                 ctx.fillStyle = 'rgba(11, 15, 25, 0.1)'; 
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                // 2. Draw Binary Rain
-                ctx.fillStyle = 'rgba(74, 202, 168, 0.25)'; // Faint Matrix Green
+                ctx.fillStyle = 'rgba(74, 202, 168, 0.25)'; 
                 ctx.font = fontSize + 'px monospace';
 
                 for(let i = 0; i < drops.length; i++) {
                     const text = binaryChars.charAt(Math.floor(Math.random() * binaryChars.length));
-                    
-                    // Draw the 0 or 1
                     ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                    // Randomly reset drop to top
                     if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                         drops[i] = 0;
                     }
                     drops[i]++;
                 }
 
-                // 3. Draw Glowing Waves ON TOP
-                // Switch composite mode to make waves shine brighter over the rain
                 ctx.globalCompositeOperation = 'lighter';
-                
                 increment += 0.02;
                 
                 waves.forEach(wave => {
@@ -536,31 +534,23 @@
                     const centerY = canvas.height / 2;
                     for (let i = 0; i < canvas.width; i++) {
                         let y = Math.sin(i * wave.length + increment * (wave.speed * 100) + wave.offset) * wave.amplitude;
-                        
-                        // Interaction: Wave spikes near mouse
                         let dist = Math.abs(i - mouse.x);
                         if (dist < 150) {
                             const force = (150 - dist) / 150;
-                            // Add extra height to the wave
                             y += Math.sin(i * 0.2 + increment * 10) * (force * 60);
                         }
                         ctx.lineTo(i, centerY + y);
                     }
                     ctx.strokeStyle = wave.color;
                     ctx.lineWidth = 3;
-                    // Add heavy neon glow
                     ctx.shadowBlur = 15;
                     ctx.shadowColor = wave.color;
                     ctx.stroke();
-                    ctx.shadowBlur = 0; // Reset
+                    ctx.shadowBlur = 0; 
                 });
-
-                // Reset composite mode for next frame (so background draws correctly)
                 ctx.globalCompositeOperation = 'source-over';
-
                 requestAnimationFrame(animate);
             }
-
             animate();
         });
     </script>
