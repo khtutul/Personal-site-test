@@ -4,106 +4,100 @@
     <title>Kabir Hossain Tutul - Portfolio</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/main.css?v=2" />
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* --- CRITICAL DARK THEME OVERRIDES --- */
+        /* --- GLOBAL & RESET --- */
         body, html {
             height: 100%;
             margin: 0;
+            padding: 0;
             font-family: 'Poppins', sans-serif !important;
-            color: #cbd5e1 !important; /* Light Silver Text */
-        }
-
-        /* --- NEW: ANIMATED BACKGROUND (Breathing Gradient) --- */
-        body {
-            background: linear-gradient(-45deg, #0f172a, #1e293b, #0b0f19, #111827);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-        }
-        
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            background-color: #050505 !important; /* Deepest Black */
+            color: #cbd5e1 !important;
+            overflow-x: hidden; /* Prevent horizontal scroll from 3D effects */
         }
 
         #wrapper, #main, #footer {
-            background: transparent !important; /* Let body bg show through */
+            background: transparent !important;
+            position: relative;
+            z-index: 2; /* Content sits above the background */
         }
 
         #header {
-            background: rgba(11, 15, 25, 0.95) !important;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px); /* Glass blur for sidebar */
+            background: rgba(5, 5, 10, 0.95) !important;
+            border-right: 1px solid rgba(0, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            z-index: 100; /* Sidebar always on top */
         }
 
-        /* Typography Fixes */
-        h1, h2, h3, h4, h5, h6, strong, b {
-            color: #ffffff !important;
-        }
-        
-        p, li, span {
-            color: #cbd5e1 !important;
-        }
-
-        a { 
-            color: #4acaa8 !important;
-            border-bottom-color: rgba(74, 202, 168, 0.5) !important;
-        }
-
-        /* --- BACKGROUND FLOATING DATA SQUARES --- */
-        .background-animation {
+        /* --- NEW: 3D MOVING GRID BACKGROUND (The "Tron" Effect) --- */
+        .cyber-grid-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh;
+            background: linear-gradient(to bottom, #000000 0%, #0a0a12 100%);
+            z-index: -1;
+            perspective: 500px; /* Creates the 3D depth */
             overflow: hidden;
-            z-index: -1; /* Behind everything */
         }
 
-        .background-animation li {
+        .cyber-grid {
             position: absolute;
-            display: block;
-            list-style: none;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.05); /* Faint white squares */
-            animation: animate 25s linear infinite;
-            bottom: -150px;
-            border-radius: 4px; /* Slight rounded corners */
+            bottom: -30%;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(74, 202, 168, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(74, 202, 168, 0.3) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: rotateX(60deg); /* Tilts the grid to make a floor */
+            animation: gridMove 5s linear infinite;
+            mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%); /* Fades out into distance */
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%);
         }
 
-        /* Randomizing the squares */
-        .background-animation li:nth-child(1) { left: 25%; width: 80px; height: 80px; animation-delay: 0s; }
-        .background-animation li:nth-child(2) { left: 10%; width: 20px; height: 20px; animation-delay: 2s; animation-duration: 12s; }
-        .background-animation li:nth-child(3) { left: 70%; width: 20px; height: 20px; animation-delay: 4s; }
-        .background-animation li:nth-child(4) { left: 40%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 18s; }
-        .background-animation li:nth-child(5) { left: 65%; width: 20px; height: 20px; animation-delay: 0s; }
-        .background-animation li:nth-child(6) { left: 75%; width: 110px; height: 110px; animation-delay: 3s; }
-        .background-animation li:nth-child(7) { left: 35%; width: 150px; height: 150px; animation-delay: 7s; }
-        .background-animation li:nth-child(8) { left: 50%; width: 25px; height: 25px; animation-delay: 15s; animation-duration: 45s; }
-        .background-animation li:nth-child(9) { left: 20%; width: 15px; height: 15px; animation-delay: 2s; animation-duration: 35s; }
-        .background-animation li:nth-child(10) { left: 85%; width: 150px; height: 150px; animation-delay: 0s; animation-duration: 11s; }
-
-        @keyframes animate {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0.1;
-                border-radius: 0;
-            }
-            100% {
-                transform: translateY(-1000px) rotate(720deg);
-                opacity: 0;
-                border-radius: 50%;
-            }
+        @keyframes gridMove {
+            0% { transform: rotateX(60deg) translateY(0); }
+            100% { transform: rotateX(60deg) translateY(50px); } /* Moves exactly 1 square down to loop smoothly */
         }
 
-        /* --- HEADER BANNER SECTION --- */
+        /* Twinkling Stars in the top distance */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 200px 200px;
+            opacity: 0.3;
+            animation: twinkle 5s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.6; }
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4, h5, h6, strong, b { color: #ffffff !important; }
+        p, li, span { color: #cbd5e1 !important; }
+        a { color: #4acaa8 !important; border-bottom-color: rgba(74, 202, 168, 0.5) !important; }
+
+        /* --- HEADER BANNER --- */
         #about {
             position: relative;
             padding: 0;
@@ -118,7 +112,8 @@
             position: relative;
             width: 100%;
             height: 450px; 
-            background: #0b0f19;
+            /* Let the grid show through, but add a slight dark tint for text readability */
+            background: rgba(5, 5, 10, 0.3); 
             overflow: hidden;
         }
 
@@ -132,7 +127,6 @@
             z-index: 1; 
         }
         
-        /* --- TEXT OVERLAY --- */
         .banner-text-overlay {
             position: absolute;
             top: 50%;
@@ -141,10 +135,9 @@
             text-align: center;
             z-index: 10;
             width: 100%;
-            /* Removed pointer-events: none so mouseover works on the name */
         }
         
-        /* --- HACKER DECRYPTION TEXT --- */
+        /* HACKER TEXT */
         .hacker-text {
             font-family: 'Share Tech Mono', monospace; 
             font-size: 3.8em;
@@ -154,12 +147,9 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             cursor: pointer; 
-            
-            /* Initial gradient */
             background: linear-gradient(90deg, #ffffff, #4acaa8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            
             filter: drop-shadow(2px 2px 0px rgba(0,0,0,1));
         }
         
@@ -171,28 +161,28 @@
             letter-spacing: 1px;
             font-weight: 600;
             text-shadow: 0 2px 4px rgba(0,0,0,1);
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.8);
             padding: 8px 20px;
             border-radius: 4px;
             border: 1px solid rgba(74, 202, 168, 0.3);
             display: inline-block;
         }
 
-        /* --- GLASS PANELS (Containers) --- */
+        /* --- GLASS PANELS (Updated for High Contrast) --- */
         .glass-panel {
-            background: rgba(30, 41, 59, 0.6); /* Slightly more opaque for readability over moving bg */
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(20, 20, 30, 0.7); /* Darker glass */
+            border: 1px solid rgba(74, 202, 168, 0.2); /* Green tint border */
             padding: 25px;
             border-radius: 12px;
             margin-bottom: 30px;
-            backdrop-filter: blur(5px); /* BLUR EFFECT BEHIND TEXT */
+            backdrop-filter: blur(8px);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
         .glass-panel:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border-color: rgba(74, 202, 168, 0.4);
+            box-shadow: 0 0 20px rgba(74, 202, 168, 0.2); /* Green glow on hover */
+            border-color: #4acaa8;
         }
 
         /* Timeline Items */
@@ -224,43 +214,23 @@
         /* Skill Bars */
         .skill-container { margin-bottom: 25px; }
         .skill-label { display: flex; justify-content: space-between; margin-bottom: 8px; color: #fff !important; }
-        .skill-bar {
-            height: 10px;
-            background: #334155;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        .skill-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4acaa8, #2e8b73);
-            width: 0%; 
-            transition: width 1.5s ease-out;
-            box-shadow: 0 0 10px rgba(74, 202, 168, 0.4);
-        }
+        .skill-bar { height: 10px; background: #334155; border-radius: 5px; overflow: hidden; }
+        .skill-fill { height: 100%; background: linear-gradient(90deg, #4acaa8, #2e8b73); width: 0%; transition: width 1.5s ease-out; box-shadow: 0 0 10px rgba(74, 202, 168, 0.4); }
         
         /* Certifications List */
         ul.certs { list-style: none; padding-left: 0; }
         ul.certs li { margin-bottom: 12px; padding-left: 25px; position: relative; }
-        ul.certs li:before { 
-            content: "✓"; 
-            color: #4acaa8; 
-            font-weight: bold; 
-            position: absolute;
-            left: 0;
-        }
+        ul.certs li:before { content: "✓"; color: #4acaa8; font-weight: bold; position: absolute; left: 0; }
 
         /* Inputs */
         input[type="text"], input[type="email"], textarea {
-            background-color: #1e293b !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            background-color: rgba(20, 20, 30, 0.8) !important;
+            border: 1px solid rgba(74, 202, 168, 0.3) !important;
             color: #ffffff !important;
         }
         input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
             border-color: #4acaa8 !important;
-            box-shadow: 0 0 0 1px #4acaa8 !important;
-        }
-        ::placeholder {
-            color: #94a3b8 !important;
+            box-shadow: 0 0 10px rgba(74, 202, 168, 0.2) !important;
         }
 
         @media screen and (max-width: 736px) {
@@ -272,10 +242,10 @@
 </head>
 <body class="is-preload">
     
-    <ul class="background-animation">
-        <li></li><li></li><li></li><li></li><li></li>
-        <li></li><li></li><li></li><li></li><li></li>
-    </ul>
+    <div class="cyber-grid-container">
+        <div class="stars"></div>
+        <div class="cyber-grid"></div>
+    </div>
 
     <section id="header">
         <header>
@@ -312,7 +282,6 @@
                     
                     <div class="banner-text-overlay">
                         <h2 class="hacker-text" data-value="KABIR HOSSAIN TUTUL">KABIR HOSSAIN TUTUL</h2>
-                        
                         <p data-aos="fade-up" data-aos-delay="200">
                             Data Security &bull; Network Engineering &bull; Academic Educator
                         </p>
@@ -321,11 +290,11 @@
                 
                 <div class="container">
                     <br />
-                    <header class="major" data-aos="fade-up">
-                        <h2>Professional Summary</h2>
-                        <p>Bridging Network Security, IT Administration, and Academic Instruction.</p>
-                    </header>
-                    <div data-aos="fade-up" data-aos-delay="200">
+                    <div class="glass-panel" data-aos="fade-up">
+                        <header class="major">
+                            <h2>Professional Summary</h2>
+                            <p>Bridging Network Security, IT Administration, and Academic Instruction.</p>
+                        </header>
                         <p>I am a Master’s graduate in Electrical Engineering with a concentration in <strong>Data Security</strong> and an extensive background in Network Operations and IT Administration.</p>
                         <p>I combine over 5 years of technical experience in network troubleshooting and system stability with recent US-based experience in <strong>Digital Learning Support</strong> and LMS administration. Whether securing corporate infrastructures or empowering students through technology, I am dedicated to excellence in both engineering and education.</p>
                         <p>Currently seeking a role in <strong>IT Security, Computer Engineering, or Academic Support</strong>.</p>
@@ -537,7 +506,7 @@
             }
         });
         
-        // --- HACKER DECRYPTION TEXT EFFECT ---
+        // HACKER DECRYPTION TEXT
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
         let interval = null;
         
@@ -575,7 +544,7 @@
             startDecryption(event.target);
         };
 
-        /* --- HYBRID: BINARY RAIN + SOFT WAVES (No Glow) --- */
+        /* --- HYBRID: BINARY RAIN + SOFT WAVES --- */
         window.addEventListener('load', function() {
             const canvas = document.getElementById('hybrid-canvas');
             const ctx = canvas.getContext('2d');
