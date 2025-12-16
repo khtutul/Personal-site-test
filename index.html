@@ -4,7 +4,7 @@
     <title>Kabir Hossain Tutul - Portfolio</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css?v=final_adjusted" />
+    <link rel="stylesheet" href="assets/css/main.css?v=intensity_boost" />
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -20,10 +20,10 @@
             background-color: #0b0f19; /* Deep Dark Blue Base */
             z-index: -999; /* Behind everything */
             
-            /* The Grid Pattern */
+            /* The Grid Pattern - INCREASED VISIBILITY (0.05 -> 0.15) */
             background-image: 
-                linear-gradient(rgba(74, 202, 168, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(74, 202, 168, 0.05) 1px, transparent 1px);
+                linear-gradient(rgba(74, 202, 168, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(74, 202, 168, 0.15) 1px, transparent 1px);
             background-size: 40px 40px;
             
             /* The Animation */
@@ -34,7 +34,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, #000000 90%);
+            background: radial-gradient(circle at center, transparent 0%, #000000 80%);
         }
 
         @keyframes gridPan {
@@ -56,7 +56,6 @@
         }
 
         /* --- 3. CRITICAL NAVIGATION FIX (Transparent Glass) --- */
-        /* Use high specificity to override template defaults */
         html body #header #nav > ul > li.active > a, 
         html body #header #nav > ul > li > a:hover {
             background: rgba(74, 202, 168, 0.15) !important; /* Glass Tint */
@@ -69,13 +68,11 @@
             margin-right: 5px; 
         }
 
-        /* Kill the solid white background on active li */
         html body #header #nav > ul > li.active {
             background: transparent !important;
             box-shadow: none !important;
         }
 
-        /* Kill the template arrows */
         html body #header #nav > ul > li.active > a:before,
         html body #header #nav > ul > li.active > a:after {
             display: none !important;
@@ -96,7 +93,7 @@
             margin-bottom: 2em;
             border-bottom: 2px solid #4acaa8;
             height: 450px;
-            background: rgba(0,0,0,0.3); /* Slightly darken banner area */
+            background: rgba(0,0,0,0.3);
         }
 
         #banner-container {
@@ -124,7 +121,7 @@
             z-index: 10;
             width: 90%;
             max-width: 800px;
-            pointer-events: none; /* Let clicks pass to hacker text */
+            pointer-events: none; 
         }
         
         /* HACKER TEXT */
@@ -142,7 +139,7 @@
             display: inline-block;
             padding: 5px 20px;
             border-radius: 8px;
-            pointer-events: auto; /* Enable interaction */
+            pointer-events: auto;
             border: 1px solid rgba(74, 202, 168, 0.3);
         }
         
@@ -176,7 +173,7 @@
         .glass-panel:hover {
             transform: translateY(-5px);
             border-color: #4acaa8;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
 
         /* Timeline Items */
@@ -214,7 +211,7 @@
         /* Inputs */
         input[type="text"], input[type="email"], textarea {
             background-color: rgba(30, 35, 50, 0.9) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(74, 202, 168, 0.3) !important;
             color: #ffffff !important;
         }
         input:focus, textarea:focus {
@@ -579,8 +576,8 @@
 
             // Config for Waves
             const waves = [
-                { length: 0.008, amplitude: 50, speed: 0.04, color: 'rgba(74, 202, 168, 0.8)', offset: 0 }, 
-                { length: 0.015, amplitude: 40, speed: 0.02, color: 'rgba(56, 189, 248, 0.8)', offset: 2 }, 
+                { length: 0.008, amplitude: 50, speed: 0.04, color: '#4acaa8', offset: 0 }, 
+                { length: 0.015, amplitude: 40, speed: 0.02, color: '#22d3ee', offset: 2 }, 
             ];
             let increment = 0;
 
@@ -588,8 +585,8 @@
                 // Clear the canvas completely for safety
                 ctx.clearRect(0, 0, canvas.width, canvas.height); 
 
-                // Draw Binary Rain (Slower and Brighter)
-                ctx.fillStyle = 'rgba(74, 202, 168, 0.5)'; 
+                // Draw Binary Rain (INTENSITY BOOSTED)
+                ctx.fillStyle = 'rgba(74, 202, 168, 0.95)'; // HIGH VISIBILITY
                 ctx.font = 'bold ' + fontSize + 'px monospace';
 
                 for(let i = 0; i < drops.length; i++) {
@@ -598,10 +595,10 @@
                     if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                         drops[i] = 0;
                     }
-                    drops[i] += 0.25; // Slower speed
+                    drops[i] += 0.5; // SLIGHTLY FASTER SPEED
                 }
 
-                // Draw Sine Waves
+                // Draw Sine Waves (THICKER & SOLID)
                 increment += 0.02;
                 waves.forEach(wave => {
                     ctx.beginPath();
@@ -611,7 +608,7 @@
                         ctx.lineTo(i, centerY + y);
                     }
                     ctx.strokeStyle = wave.color;
-                    ctx.lineWidth = 2;
+                    ctx.lineWidth = 3; // THICKER LINES
                     ctx.stroke();
                 });
                 
