@@ -4,116 +4,66 @@
     <title>Kabir Hossain Tutul - Portfolio</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css?v=final_v2" />
+    <link rel="stylesheet" href="assets/css/main.css?v=7_warp" />
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* --- 1. THE "CURTAIN" BACKGROUND (Fixes the White Screen) --- */
-        #tactical-bg {
+        /* --- GLOBAL & RESET --- */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif !important;
+            background-color: #050505 !important;
+            color: #cbd5e1 !important;
+            height: 100%;
+            overflow-x: hidden; /* Prevent scrollbars from canvas */
+        }
+
+        /* --- 1. GLOBAL BACKGROUND CANVAS (Fiber Optic Warp) --- */
+        #global-canvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #0b0f19; /* Deep Dark Blue Base */
-            z-index: -999; /* Behind everything */
-            
-            /* The Grid Pattern */
-            background-image: 
-                linear-gradient(rgba(74, 202, 168, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(74, 202, 168, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
-            
-            /* The Animation */
-            animation: gridPan 20s linear infinite;
+            width: 100%;
+            height: 100%;
+            z-index: -2; /* Deepest layer */
+            background: #02040a; /* Very Dark Blue/Black */
         }
 
-        #tactical-bg::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, #000000 90%);
-        }
-
-        @keyframes gridPan {
-            0% { background-position: 0 0; }
-            100% { background-position: 40px 40px; }
-        }
-
-        /* --- 2. FORCING TRANSPARENCY ON TEMPLATE ELEMENTS --- */
-        body, #wrapper, #main, #footer {
+        /* --- LAYOUT OVERRIDES --- */
+        #wrapper, #main, #footer {
             background: transparent !important;
+            position: relative;
+            z-index: 2;
         }
-        
-        /* Sidebar styling */
+
         #header {
-            background: rgba(5, 10, 20, 0.95) !important;
+            background: rgba(5, 5, 10, 0.95) !important;
             border-right: 1px solid rgba(74, 202, 168, 0.1);
             backdrop-filter: blur(10px);
             z-index: 100;
         }
 
-        /* --- RESTORED: AVATAR RADAR PULSE ANIMATION --- */
-        #header .image.avatar {
-            position: relative;
-            margin-bottom: 2em;
-            display: block; /* Ensure it takes space */
-        }
-        
-        #header .image.avatar img {
-            position: relative;
-            z-index: 2;
-            border: 2px solid #4acaa8; /* Green Border */
-            box-shadow: 0 0 15px rgba(74, 202, 168, 0.3);
-            border-radius: 50%;
-            transition: transform 0.3s ease;
-        }
-
-        #header .image.avatar img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(74, 202, 168, 0.6);
-        }
-
-        /* The Pulse Ring */
-        #header .image.avatar::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border-radius: 50%;
-            border: 2px solid #4acaa8;
-            opacity: 0;
-            z-index: 1;
-            animation: radarPulse 2s infinite ease-out;
-        }
-
-        @keyframes radarPulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.4); opacity: 0; }
-        }
-
-        /* --- 3. CRITICAL NAVIGATION FIX (Transparent Glass) --- */
-        /* Use high specificity to override template defaults */
+        /* --- NAVIGATION GLASS FIX --- */
         html body #header #nav > ul > li.active > a, 
         html body #header #nav > ul > li > a:hover {
-            background: rgba(74, 202, 168, 0.15) !important; /* Glass Tint */
+            background: rgba(74, 202, 168, 0.15) !important;
             color: #ffffff !important;
             backdrop-filter: blur(5px) !important;
-            border-right: 4px solid #4acaa8 !important; /* Neon Indicator */
+            border-right: 4px solid #4acaa8 !important;
             box-shadow: 0 0 15px rgba(74, 202, 168, 0.15) !important;
             text-decoration: none !important;
             border-radius: 4px;
-            margin-right: 5px; 
+            margin-right: 5px;
         }
-
-        /* Kill the solid white background on active li */
+        
         html body #header #nav > ul > li.active {
             background: transparent !important;
             box-shadow: none !important;
         }
 
-        /* Kill the template arrows */
         html body #header #nav > ul > li.active > a:before,
         html body #header #nav > ul > li.active > a:after {
             display: none !important;
@@ -121,12 +71,12 @@
             border: none !important;
         }
 
-        /* Typography Override */
+        /* Typography */
         h1, h2, h3, h4, h5, h6, strong, b { color: #ffffff !important; }
         p, li, span { color: #cbd5e1 !important; }
         a { color: #4acaa8 !important; border-bottom-color: rgba(74, 202, 168, 0.5) !important; }
 
-        /* --- 4. BANNER SECTION (Header) --- */
+        /* --- 2. BANNER SECTION --- */
         #about {
             position: relative;
             padding: 0;
@@ -134,7 +84,6 @@
             margin-bottom: 2em;
             border-bottom: 2px solid #4acaa8;
             height: 450px;
-            background: rgba(0,0,0,0.3);
         }
 
         #banner-container {
@@ -144,6 +93,7 @@
             width: 100%;
             height: 100%;
             z-index: 1; 
+            background: rgba(0,0,0,0.3);
         }
 
         #banner-canvas {
@@ -174,14 +124,12 @@
             margin-bottom: 0.2em;
             text-transform: uppercase;
             letter-spacing: 3px;
-            cursor: pointer; 
-            text-shadow: 0 0 10px rgba(74, 202, 168, 0.8);
-            background: rgba(5, 10, 20, 0.6);
-            display: inline-block;
-            padding: 5px 20px;
-            border-radius: 8px;
             pointer-events: auto;
-            border: 1px solid rgba(74, 202, 168, 0.3);
+            text-shadow: 0 0 10px rgba(74, 202, 168, 0.8);
+            background: rgba(0,0,0,0.6);
+            display: inline-block;
+            padding: 0 15px;
+            border-radius: 5px;
         }
         
         .banner-text-overlay p {
@@ -191,22 +139,22 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 600;
-            background: rgba(5, 10, 20, 0.8);
+            background: rgba(10, 10, 15, 0.8);
             padding: 10px 20px;
             border-radius: 5px;
-            border: 1px solid rgba(74, 202, 168, 0.2);
+            border: 1px solid rgba(74, 202, 168, 0.3);
             display: inline-block;
             margin-top: 15px;
         }
 
-        /* --- 5. GLASS PANELS (Content) --- */
+        /* --- 3. GLASS PANELS --- */
         .glass-panel {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(20, 25, 40, 0.7);
+            border: 1px solid rgba(74, 202, 168, 0.1);
             padding: 30px;
             border-radius: 12px;
             margin-bottom: 35px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(5px);
             transition: transform 0.3s ease, border-color 0.3s ease;
         }
@@ -214,7 +162,7 @@
         .glass-panel:hover {
             transform: translateY(-5px);
             border-color: #4acaa8;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
 
         /* Timeline Items */
@@ -247,18 +195,28 @@
         .skill-container { margin-bottom: 25px; }
         .skill-label { display: flex; justify-content: space-between; margin-bottom: 8px; color: #fff !important; }
         .skill-bar { height: 8px; background: #334155; border-radius: 4px; overflow: hidden; }
-        .skill-fill { height: 100%; background: linear-gradient(90deg, #4acaa8, #22d3ee); width: 0%; transition: width 1.5s ease-out; }
+        .skill-fill { height: 100%; background: linear-gradient(90deg, #4acaa8, #22d3ee); width: 0%; transition: width 1.5s ease-out; box-shadow: 0 0 10px rgba(74, 202, 168, 0.3); }
         
         /* Inputs */
         input[type="text"], input[type="email"], textarea {
-            background-color: rgba(30, 35, 50, 0.9) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            background-color: rgba(30, 35, 50, 0.8) !important;
+            border: 1px solid rgba(74, 202, 168, 0.3) !important;
             color: #ffffff !important;
         }
         input:focus, textarea:focus {
             border-color: #4acaa8 !important;
-            box-shadow: 0 0 5px rgba(74, 202, 168, 0.5) !important;
+            box-shadow: 0 0 8px rgba(74, 202, 168, 0.3) !important;
         }
+
+        /* Avatar Animation */
+        #header .image.avatar { position: relative; display: block; margin-bottom: 2em; }
+        #header .image.avatar img { position: relative; z-index: 2; border: 2px solid #4acaa8; border-radius: 50%; }
+        #header .image.avatar::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 50%; border: 2px solid #4acaa8; opacity: 0; z-index: 1;
+            animation: radarPulse 2s infinite ease-out;
+        }
+        @keyframes radarPulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.4); opacity: 0; } }
 
         /* Mobile */
         @media screen and (max-width: 736px) {
@@ -270,7 +228,7 @@
 </head>
 <body class="is-preload">
     
-    <div id="tactical-bg"></div>
+    <canvas id="global-canvas"></canvas>
 
     <section id="header">
         <header>
@@ -583,7 +541,81 @@
             };
         }
 
-        // --- 2. HEADER BANNER ANIMATION (Rain + Waves) ---
+        // --- 2. GLOBAL BACKGROUND ANIMATION (WARP SPEED - FIBER OPTIC) ---
+        (function() {
+            const canvas = document.getElementById('global-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let stars = [];
+            const numStars = 200; // Number of "fiber lines"
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            class Star {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = (Math.random() - 0.5) * width * 2; // Spread wide
+                    this.y = (Math.random() - 0.5) * height * 2;
+                    this.z = Math.random() * width; // Depth
+                    this.pz = this.z; // Previous z for streak effect
+                }
+                update() {
+                    this.z -= 15; // Speed of travel (Higher = Faster)
+                    if (this.z < 1) {
+                        this.reset();
+                        this.z = width;
+                        this.pz = this.z;
+                    }
+                }
+                draw() {
+                    let sx = (this.x / this.z) * width + width / 2;
+                    let sy = (this.y / this.z) * height + height / 2;
+
+                    let px = (this.x / this.pz) * width + width / 2;
+                    let py = (this.y / this.pz) * height + height / 2;
+
+                    this.pz = this.z;
+
+                    // Draw streak
+                    ctx.beginPath();
+                    ctx.moveTo(px, py);
+                    ctx.lineTo(sx, sy);
+                    
+                    // Distance fade (closer = brighter)
+                    let opacity = 1 - (this.z / width);
+                    ctx.strokeStyle = `rgba(74, 202, 168, ${opacity})`; // Theme Green
+                    ctx.lineWidth = opacity * 2;
+                    ctx.stroke();
+                }
+            }
+
+            for (let i = 0; i < numStars; i++) {
+                stars.push(new Star());
+            }
+
+            function animateGlobal() {
+                ctx.fillStyle = "#02040a"; // Clear with solid color to avoid trails being too long
+                ctx.fillRect(0, 0, width, height);
+                
+                for (let star of stars) {
+                    star.update();
+                    star.draw();
+                }
+                requestAnimationFrame(animateGlobal);
+            }
+            animateGlobal();
+        })();
+
+        // --- 3. HEADER BANNER ANIMATION (Binary Rain + Waves) ---
         (function() {
             const canvas = document.getElementById('banner-canvas');
             const ctx = canvas.getContext('2d');
@@ -607,7 +639,7 @@
 
             // Config for Waves
             const waves = [
-                { length: 0.008, amplitude: 50, speed: 0.04, color: 'rgba(74, 202, 168, 0.6)', offset: 0 }, 
+                { length: 0.008, amplitude: 50, speed: 0.04, color: 'rgba(34, 211, 238, 0.5)', offset: 0 }, 
                 { length: 0.015, amplitude: 40, speed: 0.02, color: 'rgba(56, 189, 248, 0.5)', offset: 2 }, 
             ];
             let increment = 0;
