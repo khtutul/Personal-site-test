@@ -4,138 +4,135 @@
     <title>Kabir Hossain Tutul - Portfolio</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css?v=7" />
+    <link rel="stylesheet" href="assets/css/main.css?v=99" />
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* --- 1. ROBUST GLOBAL STYLING --- */
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Poppins', sans-serif !important;
-            color: #cbd5e1 !important; /* Silver Text */
-            background-color: #0f172a !important; /* Fallback Color */
+        /* --- 1. NUCLEAR OPTION: FORCE DARK MODE --- */
+        /* Overwrite EVERY container to be transparent so background shows */
+        html, body, #wrapper, #main, #header, #footer {
+            background-color: transparent !important;
+            background-image: none !important;
         }
 
-        /* Pure CSS Animated Background (Fail-safe) */
+        /* Set the actual background on the BODY element */
         body {
-            background: radial-gradient(circle at top center, #1e293b, #0f172a, #020617);
-            background-size: 200% 200%;
-            animation: spacePulse 10s ease-in-out infinite;
+            background-color: #050505 !important; /* Deep Black */
+            color: #cbd5e1 !important; /* Silver Text */
+            font-family: 'Poppins', sans-serif !important;
+            overflow-x: hidden;
         }
 
-        @keyframes spacePulse {
-            0% { background-position: 50% 0%; }
-            50% { background-position: 50% 100%; }
-            100% { background-position: 50% 0%; }
+        /* --- 2. CSS-ONLY CYBER GRID BACKGROUND --- */
+        /* This creates the moving grid. No JS required. */
+        .cyber-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            z-index: -1; /* Stick to back */
+            
+            /* The Grid Pattern */
+            background-image: 
+                linear-gradient(rgba(74, 202, 168, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(74, 202, 168, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            
+            /* The Gradient Overlay (Makes it fade into black) */
+            mask-image: radial-gradient(circle at center, black 0%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black 0%, transparent 80%);
+            
+            /* Movement Animation */
+            transform: perspective(500px) rotateX(20deg);
+            animation: gridMove 20s linear infinite;
         }
 
-        /* --- 2. LAYOUT LAYERING --- */
-        #wrapper {
-            position: relative;
-            z-index: 10; /* Ensures content sits on top */
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(20deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(20deg) translateY(-50px); }
         }
 
+        /* --- 3. SIDEBAR FIX --- */
         #header {
-            background: rgba(15, 23, 42, 0.95) !important;
-            border-right: 1px solid rgba(74, 202, 168, 0.1);
+            background: rgba(10, 15, 30, 0.95) !important; /* Dark Blue-Black */
+            border-right: 1px solid rgba(74, 202, 168, 0.2);
             backdrop-filter: blur(10px);
-            z-index: 100;
         }
 
-        /* Typography */
+        /* Typography Colors */
         h1, h2, h3, h4, h5, h6, strong, b { color: #ffffff !important; }
         p, li, span { color: #cbd5e1 !important; }
         a { color: #4acaa8 !important; border-bottom-color: rgba(74, 202, 168, 0.5) !important; }
 
-        /* --- 3. BANNER AREA (The Animation Container) --- */
+        /* --- 4. BANNER SECTION --- */
         #about {
             position: relative;
             padding: 0;
             overflow: hidden;
             margin-bottom: 2em;
             border-bottom: 2px solid #4acaa8;
-            height: 450px; /* Fixed Height */
-            background: #020617; /* Dark background behind canvas */
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.2) !important; /* Slight tint */
         }
 
-        /* The Canvas Element */
-        #banner-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1; /* Lowest level in banner */
-            opacity: 0.8;
-        }
-
-        /* Text Container */
-        .banner-text-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 5; /* Above canvas */
-            text-align: center;
-            width: 90%;
-            max-width: 800px;
-        }
-
-        /* HACKER TEXT STYLE */
+        /* HACKER TEXT */
         .hacker-text {
             font-family: 'Share Tech Mono', monospace; 
             font-size: 3.5em;
+            font-weight: 400;
             color: #ffffff;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
             text-transform: uppercase;
-            cursor: default;
+            letter-spacing: 3px;
+            cursor: pointer; 
             
-            /* Box Styling to separate from waves */
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(74, 202, 168, 0.3);
-            padding: 10px 30px;
+            /* Cool Container */
+            background: rgba(10, 15, 30, 0.8);
+            border: 1px solid #4acaa8;
+            padding: 20px 40px;
             border-radius: 8px;
-            display: inline-block;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            backdrop-filter: blur(3px);
+            box-shadow: 0 0 20px rgba(74, 202, 168, 0.2);
         }
-
-        .banner-text-overlay p {
+        
+        .tagline {
             font-size: 1.1em;
             color: #4acaa8 !important;
             font-family: 'Courier New', monospace;
             text-transform: uppercase;
-            font-weight: bold;
+            letter-spacing: 1px;
+            font-weight: 600;
             margin-top: 15px;
-            text-shadow: 0 2px 4px rgba(0,0,0,1);
+            background: #000;
+            display: inline-block;
+            padding: 5px 10px;
         }
 
-        /* --- 4. GLASS PANELS (Content) --- */
+        /* --- 5. GLASS PANELS (Content) --- */
         .glass-panel {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(20, 25, 40, 0.8); /* Dark opaque background */
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 30px;
             border-radius: 12px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            backdrop-filter: blur(5px);
-            transition: transform 0.3s ease;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
         
         .glass-panel:hover {
             transform: translateY(-5px);
             border-color: #4acaa8;
-            background: rgba(30, 41, 59, 0.8);
+            box-shadow: 0 0 20px rgba(74, 202, 168, 0.2);
+            transition: all 0.3s ease;
         }
 
-        /* Timeline & Skills */
+        /* Timeline Items */
         .timeline-item {
             border-left: 2px solid #4acaa8;
-            padding-left: 20px;
+            padding-left: 25px;
             margin-bottom: 25px;
             position: relative;
         }
@@ -148,30 +145,43 @@
             height: 10px;
             background: #4acaa8;
             border-radius: 50%;
-            box-shadow: 0 0 5px #4acaa8;
+            box-shadow: 0 0 8px #4acaa8;
         }
-        .skill-bar { height: 8px; background: #334155; border-radius: 4px; overflow: hidden; margin-top: 5px; }
-        .skill-fill { height: 100%; background: linear-gradient(90deg, #4acaa8, #22d3ee); width: 0%; transition: width 1.5s ease-out; }
+        .timeline-date {
+            font-size: 0.9em;
+            color: #4acaa8 !important;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
 
-        /* Form Inputs */
+        /* Skill Bars */
+        .skill-container { margin-bottom: 25px; }
+        .skill-label { display: flex; justify-content: space-between; margin-bottom: 8px; color: #fff !important; }
+        .skill-bar { height: 8px; background: #334155; border-radius: 4px; overflow: hidden; }
+        .skill-fill { height: 100%; background: linear-gradient(90deg, #4acaa8, #22d3ee); width: 0%; transition: width 1.5s ease-out; }
+        
+        /* Inputs */
         input[type="text"], input[type="email"], textarea {
-            background-color: rgba(15, 23, 42, 0.8) !important;
+            background-color: rgba(30, 35, 50, 0.9) !important;
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
             color: #ffffff !important;
         }
         input:focus, textarea:focus {
             border-color: #4acaa8 !important;
-            box-shadow: 0 0 5px rgba(74, 202, 168, 0.3) !important;
+            box-shadow: 0 0 8px rgba(74, 202, 168, 0.3) !important;
         }
 
-        /* Mobile Adjustments */
+        /* Mobile */
         @media screen and (max-width: 736px) {
-            .hacker-text { font-size: 1.8em; padding: 10px 15px; }
-            #banner-container { height: 350px; }
+            .hacker-text { font-size: 1.5em; padding: 10px 20px; }
+            #about { height: 350px; }
         }
     </style>
 </head>
 <body class="is-preload">
+    
+    <div class="cyber-bg"></div>
 
     <section id="header">
         <header>
@@ -203,11 +213,10 @@
         <div id="main">
 
             <section id="about">
-                <canvas id="banner-canvas"></canvas>
-
-                <div class="banner-text-overlay">
+                <div style="text-align: center; z-index: 10;">
                     <h2 class="hacker-text" data-value="KABIR HOSSAIN TUTUL">KABIR HOSSAIN TUTUL</h2>
-                    <p data-aos="fade-up" data-aos-delay="200">
+                    <br>
+                    <p class="tagline" data-aos="fade-up" data-aos-delay="200">
                         Data Security &bull; Network Engineering &bull; Academic Educator
                     </p>
                 </div>
@@ -415,10 +424,8 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Init AOS
         AOS.init({ duration: 1000, offset: 50, once: true });
 
-        // Skill Bar Animation Trigger
         window.addEventListener('scroll', function() {
             var skillsSection = document.getElementById('skills');
             if(skillsSection) {
@@ -431,110 +438,30 @@
             }
         });
         
-        // --- 1. HACKER TEXT DECRYPTION ---
+        // HACKER TEXT SCRIPT (Simple & Safe)
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
         let interval = null;
-        
         function startDecryption(target) {
             let iteration = 0;
             const originalText = target.dataset.value;
             clearInterval(interval);
-            
             interval = setInterval(() => {
-                target.innerText = originalText
-                    .split("")
-                    .map((letter, index) => {
-                        if(index < iteration) return originalText[index];
-                        return letters[Math.floor(Math.random() * letters.length)];
-                    })
-                    .join("");
-                
-                if(iteration >= originalText.length){ 
-                    clearInterval(interval);
-                }
-                
+                target.innerText = originalText.split("").map((letter, index) => {
+                    if(index < iteration) return originalText[index];
+                    return letters[Math.floor(Math.random() * letters.length)];
+                }).join("");
+                if(iteration >= originalText.length) clearInterval(interval);
                 iteration += 1/3; 
             }, 40);
         }
-
         window.addEventListener('load', () => {
             const hackerText = document.querySelector(".hacker-text");
             if(hackerText) startDecryption(hackerText);
         });
-
-        // Trigger on mouseover for extra interactivity
         const hackerTextElement = document.querySelector(".hacker-text");
         if(hackerTextElement) {
-            hackerTextElement.onmouseover = event => {
-                startDecryption(event.target);
-            };
+            hackerTextElement.onmouseover = event => startDecryption(event.target);
         }
-
-        // --- 2. HEADER BANNER ANIMATION (Rain + Waves) ---
-        (function() {
-            const canvas = document.getElementById('banner-canvas');
-            const ctx = canvas.getContext('2d');
-            const banner = document.getElementById('about');
-
-            function resizeCanvas() {
-                canvas.width = banner.offsetWidth;
-                canvas.height = banner.offsetHeight;
-            }
-            window.addEventListener('resize', resizeCanvas);
-            resizeCanvas();
-
-            // Config for Rain
-            const binaryChars = "10";
-            const fontSize = 14;
-            const columns = Math.floor(canvas.width / fontSize);
-            const drops = [];
-            for(let x = 0; x < columns; x++) {
-                drops[x] = Math.random() * canvas.height; 
-            }
-
-            // Config for Waves
-            const waves = [
-                { length: 0.008, amplitude: 50, speed: 0.04, color: 'rgba(74, 202, 168, 0.6)', offset: 0 }, 
-                { length: 0.015, amplitude: 40, speed: 0.02, color: 'rgba(56, 189, 248, 0.5)', offset: 2 }, 
-            ];
-            let increment = 0;
-
-            function animateBanner() {
-                // Clear the canvas completely for safety, then draw a faint background for trails
-                ctx.fillStyle = 'rgba(2, 6, 23, 0.1)'; 
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                // Draw Binary Rain
-                ctx.fillStyle = 'rgba(74, 202, 168, 0.2)'; 
-                ctx.font = fontSize + 'px monospace';
-
-                for(let i = 0; i < drops.length; i++) {
-                    const text = binaryChars.charAt(Math.floor(Math.random() * binaryChars.length));
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                    if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                        drops[i] = 0;
-                    }
-                    drops[i]++;
-                }
-
-                // Draw Sine Waves
-                increment += 0.02;
-                waves.forEach(wave => {
-                    ctx.beginPath();
-                    const centerY = canvas.height / 2;
-                    for (let i = 0; i < canvas.width; i++) {
-                        let y = Math.sin(i * wave.length + increment * (wave.speed * 100) + wave.offset) * wave.amplitude;
-                        ctx.lineTo(i, centerY + y);
-                    }
-                    ctx.strokeStyle = wave.color;
-                    ctx.lineWidth = 2;
-                    ctx.stroke();
-                });
-                
-                requestAnimationFrame(animateBanner);
-            }
-            animateBanner();
-        })();
     </script>
 
 </body>
