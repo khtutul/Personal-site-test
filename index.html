@@ -4,91 +4,83 @@
     <title>Kabir Hossain Tutul - Portfolio</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="assets/css/main.css?v=final_fix" />
+    <link rel="stylesheet" href="assets/css/main.css?v=final_nav_fix" />
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* --- 1. THE "CURTAIN" BACKGROUND (Fixes the White Screen) --- */
-        #tactical-bg {
+        /* --- GLOBAL & RESET --- */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif !important;
+            background-color: #050505 !important;
+            color: #cbd5e1 !important;
+            height: 100%;
+        }
+
+        /* --- 1. GLOBAL BACKGROUND CANVAS (Covers whole page) --- */
+        #global-canvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #0b0f19; /* Deep Dark Blue Base */
-            z-index: -999; /* Behind everything */
-            
-            /* The Grid Pattern */
-            background-image: 
-                linear-gradient(rgba(74, 202, 168, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(74, 202, 168, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
-            
-            /* The Animation */
-            animation: gridPan 20s linear infinite;
+            width: 100%;
+            height: 100%;
+            z-index: -2; /* Deepest layer */
+            background: radial-gradient(circle at center, #1a1a2e 0%, #000000 100%);
         }
 
-        #tactical-bg::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, #000000 90%);
-        }
-
-        @keyframes gridPan {
-            0% { background-position: 0 0; }
-            100% { background-position: 40px 40px; }
-        }
-
-        /* --- 2. FORCING TRANSPARENCY ON TEMPLATE ELEMENTS --- */
-        body, #wrapper, #main, #footer {
+        /* --- LAYOUT OVERRIDES --- */
+        #wrapper, #main, #footer {
             background: transparent !important;
+            position: relative;
+            z-index: 2;
         }
-        
-        /* Sidebar styling */
+
         #header {
-            background: rgba(5, 10, 20, 0.95) !important;
+            background: rgba(5, 5, 10, 0.95) !important;
             border-right: 1px solid rgba(74, 202, 168, 0.1);
             backdrop-filter: blur(10px);
             z-index: 100;
         }
 
-        /* --- 3. CRITICAL NAVIGATION FIX (Transparent Glass) --- */
-        /* We use #header #nav to override the template's specific rules */
+        /* --- 2. CRITICAL NAVIGATION FIX (Transparent Glass) --- */
+        /* We use 'html body' to make this rule stronger than the template's CSS */
         
-        #header #nav > ul > li.active > a, 
-        #header #nav > ul > li > a:hover {
-            background: rgba(74, 202, 168, 0.1) !important; /* See-through tint */
+        /* The Active/Hover State */
+        html body #header #nav > ul > li.active > a, 
+        html body #header #nav > ul > li > a:hover {
+            background: rgba(74, 202, 168, 0.15) !important; /* Glass Tint */
             color: #ffffff !important;
-            backdrop-filter: blur(5px) !important; /* The Glass Blur */
+            backdrop-filter: blur(5px) !important;
             border-right: 4px solid #4acaa8 !important; /* Neon Indicator */
             box-shadow: 0 0 15px rgba(74, 202, 168, 0.15) !important;
             text-decoration: none !important;
-            transition: all 0.3s ease;
+            border-radius: 4px;
+            margin-right: 5px; /* Spacing for the border */
         }
 
-        /* Force remove the template's white background on 'active' */
-        #header #nav > ul > li.active {
+        /* Kill the solid white background */
+        html body #header #nav > ul > li.active {
             background: transparent !important;
             box-shadow: none !important;
         }
 
-        /* Remove the little triangle pointer the template adds */
-        #header #nav > ul > li.active > a:before,
-        #header #nav > ul > li.active > a:after {
+        /* Kill the annoying white arrow/triangle */
+        html body #header #nav > ul > li.active > a:before,
+        html body #header #nav > ul > li.active > a:after {
             display: none !important;
             content: none !important;
             border: none !important;
         }
 
-        /* Typography Override */
+        /* Typography */
         h1, h2, h3, h4, h5, h6, strong, b { color: #ffffff !important; }
         p, li, span { color: #cbd5e1 !important; }
         a { color: #4acaa8 !important; border-bottom-color: rgba(74, 202, 168, 0.5) !important; }
 
-        /* --- 4. BANNER SECTION (Header) --- */
+        /* --- 3. BANNER SECTION (Header) --- */
         #about {
             position: relative;
             padding: 0;
@@ -96,7 +88,6 @@
             margin-bottom: 2em;
             border-bottom: 2px solid #4acaa8;
             height: 450px;
-            background: rgba(0,0,0,0.3);
         }
 
         #banner-container {
@@ -105,7 +96,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1; 
+            z-index: 1; /* Sits on top of global bg */
+            background: rgba(0,0,0,0.3); /* Slight dimming */
         }
 
         #banner-canvas {
@@ -136,14 +128,12 @@
             margin-bottom: 0.2em;
             text-transform: uppercase;
             letter-spacing: 3px;
-            cursor: pointer; 
+            pointer-events: auto; 
             text-shadow: 0 0 10px rgba(74, 202, 168, 0.8);
-            background: rgba(5, 10, 20, 0.6);
+            background: rgba(0,0,0,0.6); 
             display: inline-block;
-            padding: 5px 20px;
-            border-radius: 8px;
-            pointer-events: auto;
-            border: 1px solid rgba(74, 202, 168, 0.3);
+            padding: 0 15px;
+            border-radius: 5px;
         }
         
         .banner-text-overlay p {
@@ -153,22 +143,22 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-weight: 600;
-            background: rgba(5, 10, 20, 0.8);
+            background: rgba(10, 10, 15, 0.8);
             padding: 10px 20px;
             border-radius: 5px;
-            border: 1px solid rgba(74, 202, 168, 0.2);
+            border: 1px solid rgba(74, 202, 168, 0.3);
             display: inline-block;
             margin-top: 15px;
         }
 
-        /* --- 5. GLASS PANELS (Content) --- */
+        /* --- 4. GLASS PANELS (Content) --- */
         .glass-panel {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(20, 25, 40, 0.7);
+            border: 1px solid rgba(74, 202, 168, 0.1);
             padding: 30px;
             border-radius: 12px;
             margin-bottom: 35px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(5px);
             transition: transform 0.3s ease, border-color 0.3s ease;
         }
@@ -176,7 +166,7 @@
         .glass-panel:hover {
             transform: translateY(-5px);
             border-color: #4acaa8;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
 
         /* Timeline Items */
@@ -209,17 +199,17 @@
         .skill-container { margin-bottom: 25px; }
         .skill-label { display: flex; justify-content: space-between; margin-bottom: 8px; color: #fff !important; }
         .skill-bar { height: 8px; background: #334155; border-radius: 4px; overflow: hidden; }
-        .skill-fill { height: 100%; background: linear-gradient(90deg, #4acaa8, #22d3ee); width: 0%; transition: width 1.5s ease-out; }
+        .skill-fill { height: 100%; background: linear-gradient(90deg, #4acaa8, #22d3ee); width: 0%; transition: width 1.5s ease-out; box-shadow: 0 0 10px rgba(74, 202, 168, 0.3); }
         
         /* Inputs */
         input[type="text"], input[type="email"], textarea {
-            background-color: rgba(30, 35, 50, 0.9) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            background-color: rgba(30, 35, 50, 0.8) !important;
+            border: 1px solid rgba(74, 202, 168, 0.3) !important;
             color: #ffffff !important;
         }
-        input:focus, textarea:focus {
+        input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
             border-color: #4acaa8 !important;
-            box-shadow: 0 0 5px rgba(74, 202, 168, 0.5) !important;
+            box-shadow: 0 0 8px rgba(74, 202, 168, 0.3) !important;
         }
 
         /* Mobile */
@@ -232,7 +222,7 @@
 </head>
 <body class="is-preload">
     
-    <div id="tactical-bg"></div>
+    <canvas id="global-canvas"></canvas>
 
     <section id="header">
         <header>
@@ -545,7 +535,94 @@
             };
         }
 
-        // --- 2. HEADER BANNER ANIMATION (Rain + Waves) ---
+        // --- 2. GLOBAL BACKGROUND ANIMATION (Particles) ---
+        (function() {
+            const canvas = document.getElementById('global-canvas');
+            const ctx = canvas.getContext('2d');
+            let particlesArray;
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', () => {
+                resize();
+                initParticles();
+            });
+            resize();
+
+            let mouse = { x: null, y: null, radius: 150 };
+            window.addEventListener('mousemove', (event) => {
+                mouse.x = event.x;
+                mouse.y = event.y;
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = (Math.random() * 2) + 1;
+                    this.speedX = (Math.random() * 0.5) - 0.25;
+                    this.speedY = (Math.random() * 0.5) - 0.25;
+                    this.color = 'rgba(74, 202, 168, 0.3)'; // Faint green
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x > canvas.width || this.x < 0) this.speedX = -this.speedX;
+                    if (this.y > canvas.height || this.y < 0) this.speedY = -this.speedY;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particlesArray = [];
+                let numberOfParticles = (canvas.height * canvas.width) / 15000;
+                for (let i = 0; i < numberOfParticles; i++) {
+                    particlesArray.push(new Particle());
+                }
+            }
+
+            function connectParticles() {
+                for (let a = 0; a < particlesArray.length; a++) {
+                    for (let b = a; b < particlesArray.length; b++) {
+                        let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) + 
+                                       ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                        if (distance < (canvas.width/7) * (canvas.height/7)) {
+                            let opacityValue = 1 - (distance / 20000);
+                            if(opacityValue > 0) {
+                                ctx.strokeStyle = 'rgba(74, 202, 168,' + (opacityValue * 0.2) + ')';
+                                ctx.lineWidth = 1;
+                                ctx.beginPath();
+                                ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                                ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                }
+            }
+
+            function animateGlobal() {
+                requestAnimationFrame(animateGlobal);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                    particlesArray[i].draw();
+                }
+                connectParticles();
+            }
+
+            initParticles();
+            animateGlobal();
+        })();
+
+        // --- 3. HEADER BANNER ANIMATION (Binary Rain + Waves) ---
         (function() {
             const canvas = document.getElementById('banner-canvas');
             const ctx = canvas.getContext('2d');
@@ -569,15 +646,14 @@
 
             // Config for Waves
             const waves = [
-                { length: 0.008, amplitude: 50, speed: 0.04, color: 'rgba(74, 202, 168, 0.6)', offset: 0 }, 
+                { length: 0.008, amplitude: 50, speed: 0.04, color: 'rgba(34, 211, 238, 0.5)', offset: 0 }, 
                 { length: 0.015, amplitude: 40, speed: 0.02, color: 'rgba(56, 189, 248, 0.5)', offset: 2 }, 
             ];
             let increment = 0;
 
             function animateBanner() {
-                // Clear the canvas completely for safety, then draw a faint background for trails
-                ctx.fillStyle = 'rgba(2, 6, 23, 0.1)'; 
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                // Clear the canvas completely for safety
+                ctx.clearRect(0, 0, canvas.width, canvas.height); 
 
                 // Draw Binary Rain
                 ctx.fillStyle = 'rgba(74, 202, 168, 0.2)'; 
